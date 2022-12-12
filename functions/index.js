@@ -1,9 +1,23 @@
-const functions = require("firebase-functions");
+//Set up Firebase
+import admin from "firebase-admin";
+admin.initializeApp(functions.config().firebase);
 
-// // Create and deploy your first functions
-// // https://firebase.google.com/docs/functions/get-started
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+//Required Firebase on every file
+import functions from "firebase-functions";
+
+//Pull in all the functions from the dif files
+
+// ---- Shopify Import ----
+import shopifyAuth from "./shopify-auth.js";
+//import shopifyReceiveWebhook from "./shopify-receiveWebhook.js";
+// import shopifyReceiveWebhook2 from "./shopify-receiveWebhook2.js";
+// import shopifyCreateDiscount from "./shopify-createDiscount.js";
+// import shopifyUpdateDiscount from "./shopify-updateDiscount.js";
+
+// ---- Shopify Export ----
+export const shopify_auth = functions.https.onRequest(shopifyAuth);
+// export const shopify_receiveWebhook = functions.https.onRequest(shopifyReceiveWebhook);
+// export const shopify_receiveWebhook2 = functions.https.onRequest(shopifyReceiveWebhook2);
+// export const shopify_createDiscount = functions.https.onRequest(shopifyCreateDiscount);
+// export const shopify_updateDiscount = functions.https.onRequest(shopifyUpdateDiscount);
+
