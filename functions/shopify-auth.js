@@ -92,15 +92,7 @@ shopifyAuth.get('/auth/callback', async (req, res) => {
         })
         .then(() => {
             res.redirect("https://uncommon.app/blog");
-            //console.log(newShopObject);
-            //admin.firestore().collection("shopify").doc(shop).set(newShopObject);
         })
-        // .then(() => {
-        //     return admin.firestore().collection("shopify").add(newShopObject);
-        // })
-        // .then(() => {
-        //     return res.send(201).redirect("https://uncommon.app/blog");
-        // })
         .catch((error) => {
             return res.status(500).send(error);
         });
