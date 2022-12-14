@@ -21,3 +21,20 @@ export const shopify_auth = functions.https.onRequest(shopifyAuth);
 // export const shopify_createDiscount = functions.https.onRequest(shopifyCreateDiscount);
 // export const shopify_updateDiscount = functions.https.onRequest(shopifyUpdateDiscount);
 
+// ---- Firestore Function Import ----
+import sendLoginEmail from "./send-login-email.js";
+// import discountOnCreate from "./discount-onCreate.js";
+// import discountAdditionOnCreate from "./discountAddition-onCreate.js";
+// import itemOnCreate from "./item-onCreate.js";
+// import orderOnCreate from "./order-onCreate.js";
+// import reviewOnCreate from "./review-onCreate.js";
+// import referralOnCreate from "./referral-onCreate.js";
+
+// ---- Firestore Function Export ----
+export const send_login_email = sendLoginEmail;
+// export const discount_onCreate = discountOnCreate;
+// export const discountAddition_onCreate = discountAdditionOnCreate;
+// export const item_onCreate = itemOnCreate;
+// export const order_onCreate = orderOnCreate;
+// export const review_onCreate = reviewOnCreate;
+// export const referral_onCreate = referralOnCreate;

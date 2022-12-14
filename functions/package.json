@@ -15,6 +15,7 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "@shopify/shopify-api": "^2.1.0",
     "axios": "^1.2.1",
     "cookie": "^0.5.0",

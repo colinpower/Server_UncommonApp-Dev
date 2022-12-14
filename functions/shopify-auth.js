@@ -1,5 +1,6 @@
 //testing URL
 //https://us-central1-uncommonapp-dev.cloudfunctions.net/shopify_auth/auth?shop=everlain.myshopify.com
+//https://us-central1-uncommonapp-dev.cloudfunctions.net/shopify_auth/auth?shop=outweigh.myshopify.com
 
 import admin from "firebase-admin";
 import functions from "firebase-functions";
