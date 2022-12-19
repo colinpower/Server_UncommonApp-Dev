@@ -27,7 +27,8 @@
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^4.1.1",
     "node-fetch": "^3.3.0",
-    "nonce": "^1.0.4"
+    "nonce": "^1.0.4",
+    "twilio": "^3.84.0"
   },
   "devDependencies": {
     "eslint": "^8.9.0",

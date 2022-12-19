@@ -20,9 +20,9 @@ const sendLoginEmail = functions.firestore
     sgMail.setApiKey("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");
 
     var msg = {
-        to: 'colin@uncommon.app', // Change to your recipient
+        to: userEmail, // Change to your recipient
         from: 'info@uncommon.app', // Change to your verified sender
-        subject: 'Sending with SendGrid is Fun',
+        subject: 'Your sign-in link',
         text: 'and easy to do anywhere, even with Node.js',
         html: '<strong>and easy to do anywhere, even with Node.js</strong>',
     };
