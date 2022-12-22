@@ -7,6 +7,9 @@ import functions from "firebase-functions";
 
 //Pull in all the functions from the dif files
 
+//need to figure out how to file my functions into folders, and then also how to add mini functions to the code that can be reused
+
+
 // ---- Shopify Import ----
 import shopifyAuth from "./shopify-auth.js";
 //import shopifyReceiveWebhook from "./shopify-receiveWebhook.js";
