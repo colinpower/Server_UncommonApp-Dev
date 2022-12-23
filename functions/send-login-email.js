@@ -17,7 +17,7 @@ const sendLoginEmail = functions.firestore
     const userObject = snap.data();
     const userEmail = userObject.email;
 
-    sgMail.setApiKey("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");
+    sgMail.setApiKey("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");
 
     var msg = {
         to: userEmail, // Change to your recipient
@@ -57,6 +57,7 @@ const sendLoginEmail = functions.firestore
                 })
         })
         .catch((error) => {
+            console.error(error)
             // Some error occurred.
         });
 
