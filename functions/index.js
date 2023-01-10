@@ -12,23 +12,24 @@ import functions from "firebase-functions";
 
 // ---- Shopify Import ----
 import shopifyAuth from "./shopify-auth.js";
-//import shopifyReceiveWebhook from "./shopify-receiveWebhook.js";
+import shopifyWebhook from "./shopify-webhook.js";
 // import shopifyReceiveWebhook2 from "./shopify-receiveWebhook2.js";
-// import shopifyCreateDiscount from "./shopify-createDiscount.js";
+import shopifyCreateCode from "./shopify-create-code.js";
 // import shopifyUpdateDiscount from "./shopify-updateDiscount.js";
 
 // ---- Shopify Export ----
 export const shopify_auth = functions.https.onRequest(shopifyAuth);
-// export const shopify_receiveWebhook = functions.https.onRequest(shopifyReceiveWebhook);
+export const shopify_webhook = functions.https.onRequest(shopifyWebhook);
 // export const shopify_receiveWebhook2 = functions.https.onRequest(shopifyReceiveWebhook2);
-// export const shopify_createDiscount = functions.https.onRequest(shopifyCreateDiscount);
+export const shopify_create_code = functions.https.onRequest(shopifyCreateCode);
 // export const shopify_updateDiscount = functions.https.onRequest(shopifyUpdateDiscount);
 export const email_unsubscribe = functions.https.onRequest(emailUnsubscribe);
 
 // ---- Firestore Function Import ----
 import sendLoginEmail from "./send-login-email.js";
 import authOnCreate from "./auth-onCreate.js";
-// import discountOnCreate from "./discount-onCreate.js";
+import orderOnCreate from "./on-create.js";
+import codeOnCreate from "./code-on-create.js";
 // import discountAdditionOnCreate from "./discountAddition-onCreate.js";
 // import itemOnCreate from "./item-onCreate.js";
 // import orderOnCreate from "./order-onCreate.js";
@@ -41,7 +42,8 @@ import emailUnsubscribe from "./email-unsubscribe.js";
 // ---- Firestore Function Export ----
 export const send_login_email = sendLoginEmail;
 export const auth_onCreate = authOnCreate;
-// export const discount_onCreate = discountOnCreate;
+export const order_onCreate = orderOnCreate;
+export const code_onCreate = codeOnCreate;
 // export const discountAddition_onCreate = discountAdditionOnCreate;
 // export const item_onCreate = itemOnCreate;
 // export const order_onCreate = orderOnCreate;

@@ -26,6 +26,8 @@
     "fetch": "^1.1.0",
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^4.1.1",
+    "graphql": "^16.6.0",
+    "graphql-request": "^5.1.0",
     "node-fetch": "^3.3.0",
     "nonce": "^1.0.4",
     "twilio": "^3.84.0"
