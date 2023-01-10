@@ -15,6 +15,7 @@ import shopifyAuth from "./shopify-auth.js";
 import shopifyWebhook from "./shopify-webhook.js";
 // import shopifyReceiveWebhook2 from "./shopify-receiveWebhook2.js";
 import shopifyCreateCode from "./shopify-create-code.js";
+import shopifyUpdateCode from "./shopify-update-code.js";
 // import shopifyUpdateDiscount from "./shopify-updateDiscount.js";
 
 // ---- Shopify Export ----
@@ -22,6 +23,7 @@ export const shopify_auth = functions.https.onRequest(shopifyAuth);
 export const shopify_webhook = functions.https.onRequest(shopifyWebhook);
 // export const shopify_receiveWebhook2 = functions.https.onRequest(shopifyReceiveWebhook2);
 export const shopify_create_code = functions.https.onRequest(shopifyCreateCode);
+export const shopify_update_code = functions.https.onRequest(shopifyUpdateCode);
 // export const shopify_updateDiscount = functions.https.onRequest(shopifyUpdateDiscount);
 export const email_unsubscribe = functions.https.onRequest(emailUnsubscribe);
 
@@ -30,6 +32,7 @@ import sendLoginEmail from "./send-login-email.js";
 import authOnCreate from "./auth-onCreate.js";
 import orderOnCreate from "./on-create.js";
 import codeOnCreate from "./code-on-create.js";
+import codeOnUpdate from "./code-on-update.js";
 // import discountAdditionOnCreate from "./discountAddition-onCreate.js";
 // import itemOnCreate from "./item-onCreate.js";
 // import orderOnCreate from "./order-onCreate.js";
@@ -44,6 +47,7 @@ export const send_login_email = sendLoginEmail;
 export const auth_onCreate = authOnCreate;
 export const order_onCreate = orderOnCreate;
 export const code_onCreate = codeOnCreate;
+export const code_onUpdate = codeOnUpdate;
 // export const discountAddition_onCreate = discountAdditionOnCreate;
 // export const item_onCreate = itemOnCreate;
 // export const order_onCreate = orderOnCreate;

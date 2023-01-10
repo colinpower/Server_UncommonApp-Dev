@@ -60,35 +60,3 @@ export default codeOnCreate;
 const getCampaign = async (code) => {
     return admin.firestore().collection("campaigns").doc(code.uuid.campaign).get()
 };
-
-
-
-
-//mutation updateDiscount($id:ID!, $basicCodeDiscount: DiscountCodeBasicInput!) {
-//     discountCodeBasicUpdate(id:$id, basicCodeDiscount: $basicCodeDiscount) {
-//         codeDiscountNode {
-//             id: id
-//             }
-//             userErrors { 
-//             extraInfo
-//             code
-//             field
-//             message
-//             }
-//     }
-// }
-
-
-// {
-//     "id": "gid://shopify/DiscountCodeNode/1206751002879",
-//     "basicCodeDiscount": {
-//       "usageLimit": 2,
-//         "customerGets": {
-//         "value": {
-//             "discountAmount": {
-//             "amount": 20
-//                 }
-//             }
-//         }
-//     }
-// }
