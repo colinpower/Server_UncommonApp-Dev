@@ -9,6 +9,41 @@ import functions from "firebase-functions";
 
 //need to figure out how to file my functions into folders, and then also how to add mini functions to the code that can be reused
 
+// ----- API --------
+// Designed to protect secret keys from being used in the main code
+
+// /shopify/auth
+// /shopify/webhook
+// /shopify/code/create
+// /shopify/code/update
+
+// /stripe/auth
+// /stripe/refresh
+// /shopify/code/create
+// /shopify/code/update
+
+// ----- FUNCTIONS --------
+// Designed to protect secret keys from being used in the main code
+
+// /auth-create
+
+// /code-create
+// /code-update
+
+// /check-OTP-update
+
+// /auth-create
+// /auth-create
+// /shopify/webhook
+// /shopify/code/create
+// /shopify/code/update
+
+// /stripe/auth
+// /stripe/refresh
+// /shopify/code/create
+// /shopify/code/update
+
+
 
 // ---- Shopify Import ----
 import shopifyAuth from "./shopify-auth.js";
@@ -55,3 +90,21 @@ export const code_onUpdate = codeOnUpdate;
 // export const referral_onCreate = referralOnCreate;
 export const requestVerificationCode_OnCreate = requestVerificationCodeOnCreate;
 export const checkOTP_OnUpdate = checkOTPOnUpdate;
+
+
+
+// export async function getTimestamp() {
+
+//     const current_timestamp_milliseconds = new Date().getTime();
+//     const timestamp = Math.round(current_timestamp_milliseconds / 1000);
+
+//     return timestamp;
+// };
+
+// export async function getTimestamp2() {
+
+//     const current_timestamp_milliseconds = new Date().getTime();
+//     const timestamp = Math.round(current_timestamp_milliseconds / 1000);
+
+//     return timestamp;
+// };

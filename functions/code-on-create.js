@@ -2,6 +2,8 @@ import admin from "firebase-admin";
 import functions from "firebase-functions";
 import fetch from "node-fetch";
 
+import { getTimestamp, getCampaign } from "./helper.js";
+
 const codeOnCreate = functions.firestore
   .document('codes/{code_id}')
   .onCreate(async (snap, context) => {
@@ -10,9 +12,12 @@ const codeOnCreate = functions.firestore
     const code_obj = snap.data();
     const campaign_doc = await getCampaign(code_obj);
     const campaign_obj = campaign_doc.data();
-    const current_timestamp_milliseconds = new Date().getTime();
-    const timestamp = Math.round(current_timestamp_milliseconds / 1000);
+    
+    
+    // const current_timestamp_milliseconds = new Date().getTime();
+    // const timestamp = Math.round(current_timestamp_milliseconds / 1000);
 
+    const timestamp = getTimestamp();
 
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     const randomArray = Array.from(
@@ -57,6 +62,8 @@ const codeOnCreate = functions.firestore
 export default codeOnCreate;
 
 
-const getCampaign = async (code) => {
-    return admin.firestore().collection("campaigns").doc(code.uuid.campaign).get()
-};
+// const getCampaign = async (code) => {
+//     return admin.firestore().collection("campaigns").doc(code.uuid.campaign).get()
+// };
+
+//export default getCampaign;

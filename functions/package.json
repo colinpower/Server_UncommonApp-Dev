@@ -30,6 +30,7 @@
     "graphql-request": "^5.1.0",
     "node-fetch": "^3.3.0",
     "nonce": "^1.0.4",
+    "stripe": "^11.6.0",
     "twilio": "^3.84.0"
   },
   "devDependencies": {

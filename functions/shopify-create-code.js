@@ -7,6 +7,8 @@ import express from "express";
 import bodyParser from "body-parser";  
 const { json } = bodyParser;
 
+import { getToken } from "./helper.js";
+
 dotenv.config();
 
 global.Headers = global.Headers || Headers;
@@ -175,22 +177,22 @@ shopifyCreateCode.post("/", async (req, res) => {
 export default shopifyCreateCode;
 
 
-const getToken = async (domain) => {
-    return admin.firestore().collection("shopify").doc(domain)
-        .get()
-        .then(result => {
+// const getToken = async (domain) => {
+//     return admin.firestore().collection("shopify").doc(domain)
+//         .get()
+//         .then(result => {
 
-            console.log(domain);
-            console.log(result.data());
-            console.log(result.data().token.token);
+//             console.log(domain);
+//             console.log(result.data());
+//             console.log(result.data().token.token);
 
-            if (!result.empty) {
-                return result.data().token.token;
-            } else {
-                return
-            }
-        })
-};
+//             if (!result.empty) {
+//                 return result.data().token.token;
+//             } else {
+//                 return
+//             }
+//         })
+// };
 
 
 

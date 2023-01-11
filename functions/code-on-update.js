@@ -2,9 +2,20 @@ import admin from "firebase-admin";
 import functions from "firebase-functions";
 import fetch from "node-fetch";
 
+//import { getTimestamp } from "./helper.js";
+//import { getCampaign } from "./code_on_create.js";
+import { getTimestamp } from "./helper.js";
+
+//const tstampvar = await getTimestamp();
+
 const codeOnUpdate = functions.firestore
   .document('codes/{code_id}/updates/{update_id}')
   .onCreate(async (snap, context) => {
+
+    //const tstamp = getCampaign({"code": "asfasdf"});
+    // console.log(tstampvar);
+    // const tstamp2 = await getTimestamp2();
+    // console.log(tstamp2);
 
     const code_id = context.params.code_id;
     const update_id = context.params.update_id;
@@ -23,10 +34,11 @@ const codeOnUpdate = functions.firestore
         headers: { "Content-Type": "application/json" }
     });
     
-    const current_timestamp_milliseconds = new Date().getTime();
+    //const current_timestamp_milliseconds = new Date().getTime();
 
     var updateObject = snap.data();
-    updateObject.timestamp.updated = Math.round(current_timestamp_milliseconds / 1000);
+    //updateObject.timestamp.updated = Math.round(current_timestamp_milliseconds / 1000);
+    updateObject.timestamp.updated = getTimestamp();
 
     console.log(response.status);
 
