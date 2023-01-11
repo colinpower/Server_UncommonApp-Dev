@@ -28,17 +28,3 @@ export async function getToken(domain) {
             }
         })
 };
-
-
-
-// export async function getTimestamp2() {
-
-//     const current_timestamp_milliseconds = new Date().getTime();
-//     const timestamp = Math.round(current_timestamp_milliseconds / 1000);
-
-//     return timestamp;
-// };
-
-
-
-// import getTimestamp from "./helper.js";

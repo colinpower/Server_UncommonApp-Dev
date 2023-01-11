@@ -44,6 +44,10 @@ import functions from "firebase-functions";
 // /shopify/code/update
 
 
+// ----- NEW FUNCTIONS SYSTEM HERE ------
+import stripeCreate from "./stripe-create.js";
+export const stripe_create = stripeCreate;
+
 
 // ---- Shopify Import ----
 import shopifyAuth from "./shopify-auth.js";
@@ -62,12 +66,19 @@ export const shopify_update_code = functions.https.onRequest(shopifyUpdateCode);
 // export const shopify_updateDiscount = functions.https.onRequest(shopifyUpdateDiscount);
 export const email_unsubscribe = functions.https.onRequest(emailUnsubscribe);
 
+// ---- Stripe Import & Export ----
+import stripeRouter from "./stripe-refresh.js";
+export const stripe = functions.https.onRequest(stripeRouter);
+
 // ---- Firestore Function Import ----
 import sendLoginEmail from "./send-login-email.js";
 import authOnCreate from "./auth-onCreate.js";
 import orderOnCreate from "./on-create.js";
 import codeOnCreate from "./code-on-create.js";
 import codeOnUpdate from "./code-on-update.js";
+
+//import createStripeAccountOnCreate from "./stripe-setup.js"
+import stripeRetrieve from "./stripe-retrieve.js"
 // import discountAdditionOnCreate from "./discountAddition-onCreate.js";
 // import itemOnCreate from "./item-onCreate.js";
 // import orderOnCreate from "./order-onCreate.js";
@@ -83,6 +94,11 @@ export const auth_onCreate = authOnCreate;
 export const order_onCreate = orderOnCreate;
 export const code_onCreate = codeOnCreate;
 export const code_onUpdate = codeOnUpdate;
+
+
+//export const create_stripe_account_onCreate = createStripeAccountOnCreate;
+export const stripe_retrieve = stripeRetrieve;
+
 // export const discountAddition_onCreate = discountAdditionOnCreate;
 // export const item_onCreate = itemOnCreate;
 // export const order_onCreate = orderOnCreate;

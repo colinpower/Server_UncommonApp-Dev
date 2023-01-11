@@ -50,8 +50,9 @@
 // });
 
 
-//CREATE A LOGIN LINK
+//CREATE A LOGIN LINK -> SHOULD USE THE FIREBASE CALLABLE FUNCTIONS FOR THIS!!!
 //https://stripe.com/docs/api/account/create_login_link
+//https://firebase.google.com/docs/functions/callable
 
 // const stripe = require('stripe')('sk_test_51LpX0FI2TxC7l4Yf57QKnsPHQplHG5TW7IR3fQMwssScbJcSQ8kZMzsxridu1FvPzby7AveWjuAFWtkBRM3NLax80037hMRtyH');
 

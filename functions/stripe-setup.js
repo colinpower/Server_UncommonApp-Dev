@@ -1,58 +1,88 @@
-import admin from "firebase-admin";
-import functions from "firebase-functions";
-import express from 'express';
-import Stripe from 'stripe';
+// import admin from "firebase-admin";
+// import functions from "firebase-functions";
+// import express from 'express';
+// import fetch from "node-fetch";
+// import dotenv from "dotenv";
+// import Stripe from 'stripe';
 
-const stripe = new Stripe('sk_test_51LpX0FI2TxC7l4Yf57QKnsPHQplHG5TW7IR3fQMwssScbJcSQ8kZMzsxridu1FvPzby7AveWjuAFWtkBRM3NLax80037hMRtyH');
 
+// dotenv.config();
+// const stripe_token = process.env.STRIPE_TOKEN
 
-// const customer = await stripe.customers.create({
-//   email: 'customer@example.com',
+// const stripe = new Stripe(stripe_token);
+
+// const createStripeAccountOnCreate = functions.firestore
+//   .document('stripe/{user_id}/createAccount/{request_id}')
+//   .onCreate(async (snap, context) => {
+
+//     console.log("STRIPE TOKEN");
+//     console.log(process.env.STRIPE_TOKEN);
+
+//     const user_id = context.params.user_id;
+//     const request_id = context.params.request_id;
+//     const createAccount_obj = snap.data();
+
+//     const name = createAccount_obj.name;
+
+//     const account = await stripe.accounts.create({       //country: 'US',
+//         type: 'express',
+//         email: 'colin@uncommon.app',
+//         capabilities: {transfers: {requested: true}},
+//         business_type: 'individual',
+//         business_profile: {url: 'https://uncommon.app'},
+//         individual: {
+//             first_name: name,
+//             last_name: request_id,
+//             phone: '+16177772994'    //"+16177772994"
+//         },
+//         settings: {
+//             payouts: {
+//                 schedule: {
+//                     interval: 'manual'
+//                 }
+//             }
+//         }
+//     });
+
+//     console.log(account.id);
+
+//     const refresh_url = "https://us-central1-uncommonapp-dev.cloudfunctions.net/stripe/refresh?uid=" + account.id
+
+//     const accountLink = await stripe.accountLinks.create({
+//         account: account.id,
+//         refresh_url: refresh_url,
+//         return_url: 'https://uncommonapp.page.link/stripe',
+//         type: 'account_onboarding',
+//     });
+
+//     console.log(accountLink.url);
+
+//     var temp_object = {
+//         "account_id": account.id,
+//         "url": accountLink.url
+//     }
+//                             //.document('stripe/{user_id}/createAccount/{request_id}')
+//     return admin.firestore().collection("stripe").doc(user_id).update({response: temp_object});
 // });
 
-// console.log(customer.id);
-
-
-
-// Set your secret key. Remember to switch to your live secret key in production.
-// See your keys here: https://dashboard.stripe.com/apikeys
-
-
-const account = await stripe.accounts.create({type: 'express'});
-
-const account = await stripe.accounts.create({
-    country: 'US',
-    type: 'express',
-    email: 'colin@uncommon.app',
-    capabilities: {transfers: {requested: true}},
-    business_type: 'individual',
-    business_profile: {url: 'https://uncommon.app'},
-    individual: {
-        first_name: 'first_name',
-        last_name: 'last_name',
-        phone: 'phone_number'    //"+16177772994"
-        // address: {
-        //   city: 'city',
-        //   line1: 'address1',
-        //   line2: 'address2',
-        //   postal_code: 'zip_code'
-        // }
-      }
-  });
+// export default createStripeAccountOnCreate;
 
 //Save account info to the user's profile
 
 //Create account link (temporary)
 
-  const account_id = account.id;
+//   const account_id = account.id;
 
 
-  const accountLink = await stripe.accountLinks.create({
-    account: account_id,
-    refresh_url: 'https://example.com/reauth',
-    return_url: 'https://example.com/return',
-    type: 'account_onboarding',
-  });
+//   const accountLink = await stripe.accountLinks.create({
+//     account: account_id,
+//     refresh_url: 'https://example.com/reauth',
+//     return_url: 'https://example.com/return',
+//     type: 'account_onboarding',
+//   });
+
+
+
 
 //return_url -> the way that the user returns to your application from stripe
     //no state is passed
@@ -74,7 +104,6 @@ const account = await stripe.accounts.create({
 //https://www.google.com/refresh?uid={user.uuid}
     //Then in your function, retrieve the param with:
         //const uid = req.query.uid;
-
 
 // ACCOUNT LINK OBJECT FROM STRIPE
 // {
@@ -204,3 +233,14 @@ const account = await stripe.accounts.create({
 //       "user_agent": null
 //     },
 //     "type": "express"
+
+
+
+
+
+// Create customer in Stripe.. I don't think I need this?
+// const customer = await stripe.customers.create({
+//   email: 'customer@example.com',
+// });
+
+// console.log(customer.id)
