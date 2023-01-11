@@ -69,5 +69,33 @@ export async function transferCash(account_id, amount, referral_id) {
 //https://stripe.com/docs/api/transfers/create
 // #endregion
 
+// #region createAccountLink -> Should be http Callable fx from iOS
+    // const loginLink = await stripe.accounts.createLoginLink(
+    //     'acct_1LpX0FI2TxC7l4Yf'
+    //   );
+// #endregion
+
+// #region checkIfInstantPayoutsAvailable -> see bank acct ID on the account object
+    // const bankAccount = await stripe.accounts.retrieveExternalAccount(
+    //     'acct_1LpX0FI2TxC7l4Yf',
+    //     'ba_1MP1uAI2TxC7l4Yffj6BkZhl'
+    //   );
+    //https://stripe.com/docs/api/external_account_bank_accounts/retrieve
+    // The object for the bank will tell you if instant payments available
+        // {
+        //     "id": "card_9CUH5DBY1jTgQ0",
+        //     "object": "card",
+        //     ...
+        //     "account": "acct_1032D82eZvKYlo2C",
+        //     "available_payout_methods": ["standard", "instant"],
+        //   }
+// #endregion
 
 
+// #region createPayout....
+    // const payout = await stripe.payouts.create(
+    //     {amount: 1000, currency: '$merchant.currency', method: 'instant', source_type: 'card'},    //this refers to the account's card / bank acct that they've linked... always send $ to just one of them
+    //     {stripeAccount: '{{CONNECTED_ACCOUNT_ID}}'}
+    //   );
+    //https://stripe.com/docs/connect/instant-payouts
+// #endregion
