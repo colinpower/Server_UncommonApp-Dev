@@ -1,0 +1,55 @@
+
+
+---------- POSTMAN JSON
+
+{
+    "account": {
+        "email": "colin@adidas.com",
+        "name": {
+            "first": "COLIN",
+            "last": "POWER"
+        }
+    },
+    "campaigns": [],
+    "info": {
+        "category": "Running",
+        "description": "Running shoes",
+        "domain": "adidas.com",
+        "icon": "",
+        "name": "Adidas",
+        "website": "adidas.com"
+    }, 
+    "timestamp": {
+        "created": 0
+    },
+    "uuid": {
+        "shop": ""
+    }
+}
+
+---------- FIREBASE FUNCTION
+
+    const object = {
+        account: {
+            email: o.account.email,
+            name: {
+                first: o.account.name.first,
+                last: o.account.name.last
+            }
+        },
+        campaigns: o.campaigns,
+        info: {
+            category: o.info.category,
+            description: o.info.description,
+            domain: o.info.domain,
+            icon: o.info.icon,
+            name: o.info.name,
+            website: o.info.website
+        }, 
+        timestamp: {
+            created: o.timestamp.created
+        },
+        uuid: {
+            shop: ref.id
+        }
+    };

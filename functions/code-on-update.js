@@ -75,14 +75,14 @@ const updateUpdateID = async (object, value, code_id, update_id) => {
 // #region updateCodeID(object, code_id)
 const updateCodeID = async (object, code_id) => {
 
-    var codeObject = {
-      "code": object.code.new,
-      "color": object.code.color,
-      "graphql_id": object.code.graphql_id,
-      "is_default": object.code.is_default
-    };
+    // var codeObject = {
+    //   "code": object.code.new,
+    //   "color": object.code.color,
+    //   "graphql_id": object.code.graphql_id,
+    //   "is_default": object.code.is_default
+    // };
 
-    return admin.firestore().collection("codes").doc(code_id).update({code: codeObject});
+    return admin.firestore().collection("codes").doc(code_id).update({"code.code": object.code.new});
 };
 // #endregion
 
