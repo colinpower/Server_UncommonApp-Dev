@@ -118,61 +118,51 @@ const mapValues = (object, data) => {
 
 
 
-// async function addNewShopToken(object) {
-//     const result = await admin.firestore().collection("shopify").add(object);
-//     console.log(result);
-// }
+//#region Athleisure access token (Aug 15)
+// Session {
+//     id: 'offline_athleisure-la.myshopify.com',
+//     shop: 'athleisure-la.myshopify.com',
+//     state: '747143013473658',
+//     isOnline: false,
+//     accessToken: 'shpua_2d7b02871ee6b3cf1094875025e269c4',
+//     scope: 'read_products,read_orders,write_discounts,write_price_rules'
+//   }
+//#endregion
 
+//#region Hello-Vip access token (Aug 15)
+// Session {
+//     id: 'offline_hello-vip.myshopify.com',
+//     shop: 'hello-vip.myshopify.com',
+//     state: '118739299662392',
+//     isOnline: false,
+//     accessToken: 'shpua_bbb2ae8010e6ac28e288722234983f03',
+//     scope: 'read_products,read_orders,write_discounts,write_price_rules'
+//   }
+//#endregion
 
-   // const accessTokenResponse = await axios.post(accessTokenRequestUrl, accessTokenPayload);
+//#region Hello-Vip-Test-1 access token (Aug 15)
+// Session {
+//     id: 'offline_hello-vip-test-1.myshopify.com',
+//     shop: 'hello-vip-test-1.myshopify.com',
+//     state: '967928987420190',
+//     isOnline: false,
+//     accessToken: 'shpua_3e80c4fc97887f4d700426804466e152',
+//     scope: 'read_products,read_orders,write_discounts,write_price_rules'
+//   }
+//#endregion
 
-        // const newToken = await accessTokenResponse.data.accessToken;
+//#region Attempting to set the access token in firebase
+// const accessTokenInfo = {
+//     id: shopSession.id,
+//     shop: shopSession.shop,
+//     state: shopSession.state,
+//     isOnline: shopSession.isOnline,
+//     accessToken: shopSession.accessToken || "token not found",
+//     scope: shopSession.scope
+// };
 
-        // console.log(newToken);
+// const resultOfFirebaseSet = admin.firestore().collection("onboarding").doc(shopSession.shop).set(accessTokenInfo);
 
-
-        // //if this works, add in a call to Firebase here..
-
-
-        //   .then((accessTokenResponse) => {
-
-        //     //console.log(accessTokenResponse.data.accessToken);
-
-        //     //res.redirect("https://uncommon.app/blog")
-
-        //     //Need the SHOP, ACCESS_TOKEN, SCOPES, and ID (if available)
-
-        //     const createJSON = {
-        //         code: accessTokenResponse.data.accessToken,
-        //     };
-        
-        //     fetch("https://4f9c-205-178-78-227.ngrok.io/", {
-        //         method: "POST", 
-        //         body: JSON.stringify(createJSON),
-        //         headers: { "Content-Type": "application/json" }
-        //     });
-
-
-        //     res.redirect("https://uncommon.app/blog")
-
-        //     // var sessionObject1 = {
-        //     //     auth_token: accessTokenResponse.data.accessToken,
-        //     //     auth_scopes: accessTokenResponse.data.scope,
-        //     //     shop_url: shop
-        //     // };
-
-        //     // axios.post("https://example.com")
-        //     // return admin.firestore().collection("shopify").add(sessionObject1);
-
-        // //     //return res.redirect("https://uncommon.app/blog")
-
-        // //     //auth_scopes: accessTokenResponse.data.scope,
-            
-        // //     // .then(() => {
-        // //     //     return res.redirect("https://uncommon.app/blog")
-        // //     // })
-
-
-        // }).catch((error) => {
-        //     res.status(error.statusCode).send(error.error.error_description);
-        // });
+//log the response from firebase
+//console.log("Set: ", resultOfFirebaseSet);
+//#endregion

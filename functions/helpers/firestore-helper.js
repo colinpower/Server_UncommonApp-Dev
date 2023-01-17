@@ -1,15 +1,8 @@
 import admin from "firebase-admin";
 
-export function getTimestamp() {
-
-    const current_timestamp_milliseconds = new Date().getTime();
-    const timestamp = Math.round(current_timestamp_milliseconds / 1000);
-
-    return timestamp;
-};
-
 export async function getCampaign(code) {
-    return admin.firestore().collection("campaigns").doc(code.uuid.campaign).get()
+    const snap = await admin.firestore().collection("campaigns").doc(code.uuid.campaign).get()
+    return snap.data();
 };
 
 export async function getToken(domain) {
@@ -27,4 +20,9 @@ export async function getToken(domain) {
                 return
             }
         })
+};
+
+export async function getUser(uid) {
+    const snap = await admin.firestore().collection("users").doc(uid).get()
+    return snap.data();
 };

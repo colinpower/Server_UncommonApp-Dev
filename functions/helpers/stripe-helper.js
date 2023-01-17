@@ -54,18 +54,19 @@ export async function createAccountLink(account_id) {
 };
 // #endregion
 
-// #region transferCash(account_id, amount, referral_id)
-export async function transferCash(account_id, amount, referral_id) {
+// #region transferCash(acct_id, amount, referral_id)
+export async function transferCash(amount, acct_id, referral_id) {
 
     const transfer = await stripe.transfers.create({
         amount: amount,
         currency: 'usd',
-        destination: 'account_id',
-        transfer_group: 'referral_id',
+        destination: acct_id,
+        transfer_group: referral_id,
       });
 
     return transfer.id;
 };
+
 //https://stripe.com/docs/api/transfers/create
 // #endregion
 

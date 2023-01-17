@@ -1,8 +1,8 @@
 // #region setup
 import admin from "firebase-admin";
 import functions from "firebase-functions";
-import { createAccount, createAccountLink } from "./stripe-helper.js";
-import { getTimestamp } from "./helper.js";
+import { createAccount, createAccountLink } from "./helpers/stripe-helper.js";
+import { getTimestamp } from "./helpers/helper.js";
 // #endregion
 
 const stripeCreate = functions.firestore

@@ -1,36 +1,34 @@
 import admin from "firebase-admin";
 import functions from "firebase-functions";
 
-const orderOnCreate = functions.firestore
-  .document('orders/{order_id}')
+const create_Order = functions.firestore
+  .document('orders/{doc_id}')
   .onCreate(async (snap, context) => {
 
-    const order = snap.data();
-
-
-    var object = {
-        abc: "none",
-        code: "none",
-        campaign: "none"
-    };
-
+    const doc_id = context.params.doc_id;
+    const doc = snap.data();
+    
     console.log(order);
     console.log(order.order.email);
 
-    const userResult = await findUser(order);
-
-    if (order.codes.code.length == 0) {
-        //just post to update the order and skip the rest
-    } else {
-
-        const codeResult = await getCode(order);
-
-        if (!codeResult.empty) {
-
-            object.code = codeResult.docs[0].data().code.CODE;
+    const user = await checkForUser(doc.order.email, doc.order.phone);
+ 
+    if (doc.codes.code) {
+        const existing_code = await checkForCode(doc.codes.code[0]);
+        
+        object.code = codeResult.docs[0].data().code.CODE;
             let referral_ref = admin.firestore().collection("referrals").doc();
             await createReferral(codeResult.docs[0].data(), order, referral_ref)
+    }
+        if (!codeResult.empty) {
+
+            
         }
+
+
+    } else {
+
+        
 
     }
     
@@ -64,13 +62,20 @@ const orderOnCreate = functions.firestore
     // }
 });
 
-export default orderOnCreate;
+export default create_Order;
 
-// #region findUser(order)
-const findUser = async (order) => {
+// #region checkForUser(email, phone)
+const checkForUser = async (email, phone) => {
 
+    if (!email) {
+        email = "XXXXXXXXXXX"
+    }
+    if (!phone) {
+        phone = "XXXXXXXXXXX"
+    }
+        
     return admin.firestore().collection("users")    //First, check whether shop exists for domain
-        .where("profile.email", "==", order.order.email)
+        .where("profile.email", "==", email)
         .get()
         .then(result => {
 
@@ -90,11 +95,11 @@ const findUser = async (order) => {
 };
 // #endregion
 
-// #region getCode(order)
-const getCode = async (order) => {
+// #region checkForCode(code)
+const checkForCode = async (code) => {
 
     return admin.firestore().collection("codes")    //First, check whether shop exists for domain
-        .where("code.CODE", "==", order.codes.code[0].toUpperCase())
+        .where("code.UPPERCASED", "==", order.codes.code[0].toUpperCase())
         .get()
        
 };

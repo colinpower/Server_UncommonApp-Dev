@@ -1,6 +1,7 @@
 import admin from "firebase-admin";
 import functions from "firebase-functions";
 import express from 'express';
+import { getTimestamp } from "./../helpers/helper.js";
 
 
 const firestoreWebhook = express();
@@ -40,27 +41,46 @@ firestoreWebhook.post('/users', async (req, res) => {
 });
 // #endregion
 
-// #region /shopify
-firestoreWebhook.post('/shopify', async (req, res) => {
-    
+// #region /auth_shopify
+firestoreWebhook.post('/auth_shopify', async (req, res) => {
+
     const o = req.body;
     const doc_id = o.shop.domain;
 
+    const tstamp = getTimestamp();
+
     const object = {
-        "lastUpdated": 0,
         "shop": {
+            "category": o.shop.category,
+            "contact_support_email": o.shop.contact_support_email,
+            "description": o.shop.description,
             "domain": o.shop.domain,
             "name": o.shop.name,
-            "uuid": o.shop.uuid,
-        }, 
-        "token": {
-            "scopes": o.token.scopes,
-            "token": o.token.token
+            "website": o.shop.website,
+        },
+        "session": {
+            "scope": o.session.scope,
+            "shop": o.shop.domain,
+            "token": o.session.token
+        },
+        "subscription": {
+            "description": o.subscription.description,
+            "capped_amount": o.subscription.capped_amount
+        },
+        "timestamp": {
+            "created": tstamp,
+            "subscribed": 0,
+            "updated": 0,
+            "deleted": 0
+        },
+        "uuid": {
+            "auth_shopify": o.shop.domain,
+            "shop": ""
         }
     };
     
 
-    await admin.firestore().collection("shopify").doc(doc_id).set(object);
+    await admin.firestore().collection("auth_shopify").doc(doc_id).set(object);
 
     return res.sendStatus(201);
 
@@ -104,4 +124,58 @@ firestoreWebhook.post('/shops', async (req, res) => {
 
 });
 // #endregion
+
+
+// #region /auth_phone
+firestoreWebhook.post('/auth_phone', async (req, res) => {
+    
+    const o = req.body;
+
+    const ref = admin.firestore().collection("auth_phone").doc(o.uuid.auth_phone);
+
+    const object = {
+        correct_code: o.correct_code,
+        phone: o.phone,
+        submitted_code: o.submitted_code,
+        timestamp: {
+            created: o.timestamp.created,
+            expires: o.timestamp.expires,
+            submitted: o.timestamp.submitted
+        },
+        uuid: {
+            auth_phone: o.uuid.auth_phone,
+            user: o.uuid.user
+        }
+    };
+
+    await ref.set(object);
+
+    return res.sendStatus(201);
+
+});
+// #endregion
+
+// #region UPDATE /auth_phone
+firestoreWebhook.post('/update_auth_phone', async (req, res) => {
+    
+    const o = req.body;
+
+    const ref = admin.firestore().collection("auth_phone").doc(o.uuid.auth_phone);
+
+    const tstamp = getTimestamp();
+
+    const object = {
+        "submitted_code": o.submitted_code,
+        "timestamp.submitted": tstamp
+    };
+
+    await ref.update(object);
+
+    return res.sendStatus(201);
+
+});
+// #endregion
+
+
+
 export default firestoreWebhook;
