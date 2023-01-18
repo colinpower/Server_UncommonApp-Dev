@@ -6,7 +6,7 @@ import { getToken } from "./helpers/firestore-helper.js";
 import { updateShopifyCode } from "./helpers/shopify-helper.js";
 // #endregion
 
-const create_code__modify = functions.firestore
+const create_Code_modify = functions.firestore
   .document('codes/{code_id}/modify/{doc_id}')
   .onCreate(async (snap, context) => {
 
@@ -39,7 +39,7 @@ const create_code__modify = functions.firestore
     }
 });
 
-export default create_code__modify;
+export default create_Code_modify;
 
 
 // #region updateModifyDocument(code_id, doc_id, doc, status)

@@ -1,5 +1,6 @@
 import admin from "firebase-admin";
 import functions from "firebase-functions";
+import { getTimestamp } from "./helpers/helper.js";
 
 const create_Order = functions.firestore
   .document('orders/{doc_id}')
@@ -7,59 +8,40 @@ const create_Order = functions.firestore
 
     const doc_id = context.params.doc_id;
     const doc = snap.data();
-    
-    console.log(order);
-    console.log(order.order.email);
-
     const user = await checkForUser(doc.order.email, doc.order.phone);
- 
-    if (doc.codes.code) {
-        const existing_code = await checkForCode(doc.codes.code[0]);
-        
-        object.code = codeResult.docs[0].data().code.CODE;
-            let referral_ref = admin.firestore().collection("referrals").doc();
-            await createReferral(codeResult.docs[0].data(), order, referral_ref)
-    }
-        if (!codeResult.empty) {
+    const membership = await checkForMembership(user, doc.uuid.shop);
+    
+    if (doc.codes.code[0]) {                                    // CODE USED... -->
 
-            
+        const code = await checkForCode(doc.codes.code[0], doc.shop.domain);
+
+        if (code) {                                             //      --> & FROM UNCOMMON
+
+            if (code.purpose == "REWARD") {                     //      --> & FROM UNCOMMON, AS REWARD
+                
+                return makeUpdatesForRewardCodeUsage(doc_id, doc, code);
+
+            } else if (code.purpose == "REFERRAL") {            //      --> & FROM UNCOMMON, AS REFERRAL
+
+                return makeUpdatesForReferralCodeUsage(doc_id, doc, user, membership, code)
+
+            } else {                                            //      --> & ERROR FINDING TYPE
+
+                console.log("error!!! did not match code correctly");
+                return
+            }
+        } else {                                                //      --> & NOT FROM UNCOMMON
+
+            return updateDoc(doc_id, doc, user, membership);
+
         }
 
 
-    } else {
+    } else {                                                    // NO CODE USED
 
+        return updateDoc(doc_id, doc, user, membership);
         
-
     }
-    
-
-    
-
-    if (!userResult.empty) {
-        object.abc = userResult.docs[0].data().profile.email
-    } else {
-        console.log("we not find an email");
-    }
-    
-    let new_post = admin.firestore().collection("ABCDEF").doc();
-
-    return new_post.set(object);
-
-    //const code = await getCode(order);
-
-    // if (!code.empty) {
-    //     if (code.timestamp.deleted < 1000) {                    //Just a random check.. should check if code is of type "REFERRAL" or "REWARD"
-    //         const referral = await createReferral(code, user, order);
-    //         const result = await updateReferralCode(code, user, order, referral);
-    //         return await updateOrder(code, user, order);
-    //     } else {
-    //         // const reward = await updateReward(code, user, order);
-    //         // const result = await updateRewardCode(code, user, order, reward);
-    //         // return await updateRewardOrder(code, user, order, reward);
-    //     };
-    // } else {
-    //     return await updateOrder(code, user, order);
-    // }
 });
 
 export default create_Order;
@@ -76,6 +58,7 @@ const checkForUser = async (email, phone) => {
         
     return admin.firestore().collection("users")    //First, check whether shop exists for domain
         .where("profile.email", "==", email)
+        .limit(1)
         .get()
         .then(result => {
 
@@ -84,160 +67,190 @@ const checkForUser = async (email, phone) => {
                 console.log("NO EMAIL");
 
                 return admin.firestore().collection("users")    //First, check whether shop exists for domain
-                    .where("profile.phone", "==", order.order.phone)
-                    .get();
+                    .where("profile.phone", "==", phone)
+                    .limit(1)
+                    .get()
+                    .then(result => {
+                        if (result.empty) {
+                            return
+                        } else {
+                            return result.docs[0].data();
+                        }
+                    })
 
             } else {
                 console.log("YES EMAIL");
-                return result
+                return result.docs[0].data();
             }
         });
 };
 // #endregion
 
-// #region checkForCode(code)
-const checkForCode = async (code) => {
+// #region checkForMembership(user, shop_id)
+const checkForMembership = async (user, shop_id) => {
+
+    if (user) {
+
+        const membership_id = user.uuid.user + "-" + shop_id;
+
+        return admin.firestore().collection("shops").doc(membership_id).get()
+        .then((result) => {
+            if (result) {
+                return result.data();
+            } else {
+                return;
+            }
+        })
+    } else {
+        return
+    }
+};
+// #endregion
+
+// #region checkForCode(code, domain)
+const checkForCode = async (code, domain) => {
 
     return admin.firestore().collection("codes")    //First, check whether shop exists for domain
-        .where("code.UPPERCASED", "==", order.codes.code[0].toUpperCase())
+        .where("code.UPPERCASED", "==", code.toUpperCase())
+        .where("shop.domain", "==", domain)
+        .limit(1)
         .get()
+        .then((result) => {
+            if (result) {
+                return result.docs[0].data();
+            } else {
+                return
+            }
+        })
        
+};
+// #endregion
+
+// #region makeUpdatesForRewardCodeUsage(doc_id, doc, code)
+const makeUpdatesForRewardCodeUsage = async (doc_id, doc, code) => {            // update code, update doc
+
+    code.stats.usage_count = code.stats.usage_count + 1;
+    code.status = "USED";
+    code.timestamp.last_used = getTimestamp();
+    code.uuid.order = doc.uuid.order;
+
+    await admin.firestore().collection("codes").doc(code.uuid.code).update(code);
+
+
+    doc.uuid.campaign = code.uuid.campaign;
+    doc.uuid.code = code.uuid.code;
+    doc.uuid.membership = code.uuid.membership;
+    doc.uuid.user = code.uuid.user;
+
+    return admin.firestore().collection("orders").doc(doc_id).update(doc);
+
+}
+// #endregion
+
+// #region makeUpdatesForReferralCodeUsage(doc_id, doc, user, membership, code)
+const makeUpdatesForReferralCodeUsage = async (doc_id, doc, user, membership, code) => {            // update code, add referral, update order
+
+    code.stats.usage_count = code.stats.usage_count + 1;
+    code.timestamp.last_used = getTimestamp();
+    code.uuid.order = doc.uuid.order;
+
+    await admin.firestore().collection("codes").doc(code.uuid.code).update(code);
+
+    const referral_id = createReferral(doc, code);
+
+    doc.referrer.code = code.code.code;
+    doc.referrer.membership = code.uuid.membership;
+    doc.referrer.user = code.uuid.user;
+    doc.uuid.campaign = code.uuid.campaign;
+    doc.uuid.code = code.uuid.code;
+    doc.uuid.membership = ((membership) ? membership.uuid.membership : "");
+    doc.uuid.referral = referral_id;
+    doc.uuid.user = ((user) ? user.uuid.user : "");
+
+    return admin.firestore().collection("orders").doc(doc_id).update(doc);
 };
 // #endregion
 
 // #region createReferral(code, user, referral_ref)
 const createReferral = async (code, order, referral_ref) => {
 
-    return admin.firestore().collection("campaigns")    //First, check whether shop exists for domain
-        .where("uuid.campaign", "==", code.uuid.campaign)
-        .get()
-        .then(result => {
+    //must first post a new /referral/{id}
+    //then return the referral_id
 
-            if (result.empty) {
-                console.log("Error: Can't find the campaign for the following code");
-                console.log(code);
-                return;
+    const campaign = await getCampaign(code);
+
+    if (campaign) {
+
+        const referral_ref = admin.firestore().collection("referrals").doc();
+
+        var object = {}
+
+        object.commission = campaign.commission;
+        object.code = code.code.code;
+        object.revenue = order.order.price;
+        object.shop = code.shop;
+        object.status = "ACTIVE";
+        object.modified_by = "";
+        object.timestamp.created = getTimestamp();
+        object.timestamp.completed = 0;
+        object.timestamp.returned = 0;
+        object.timestamp.flagged = 0;
+        object.timestamp.deleted = 0;
+        object.uuid.campaign = campaign.uuid.campaign;
+        object.uuid.cash = "";
+        object.uuid.code = code.uuid.code;
+        object.uuid.membership = code.uuid.membership;
+        object.uuid.order = order.uuid.order;
+        object.uuid.referral = referral_ref.id;
+        object.uuid.shop = code.uuid.shop;
+        object.uuid.user = code.uuid.user;
+      
+        await referral_ref.set(object);
+
+        return referral_ref.id
+
+    } else {
+        console.log("ERROR!! CAN'T FIND CAMPAIGN!!!")
+        return;
+    }
+};
+// #endregion
+
+// #region getCampaign(code)
+const getCampaign = async (code) => {
+
+    return admin.firestore().collection("campaigns").doc(code.uuid.campaign).get()
+        .then((result) => {
+            if (result) {
+                return result.data();
             } else {
-
-                let campaign = result.docs[0].data();
-
-                const current_timestamp_milliseconds = new Date().getTime();
-                const timestamp = Math.round(current_timestamp_milliseconds / 1000);
-
-                var offer_summary = "";
-
-                if (campaign.commission.offer == "PERCENT"){
-                    offer_summary = campaign.commission.value + "%"
-                } else {
-                    offer_summary = "$" + campaign.commission.value
-                }
-
-                var object = {
-                    commission: {
-                        duration_pending: campaign.commission.duration_pending,
-                        offer: campaign.commission.offer,
-                        type: campaign.commission.type,
-                        value: campaign.commission.value,
-                    },
-                    offer: offer_summary,
-                    revenue: order.order.price,
-                    shop: {
-                        domain: code.shop.domain,
-                        icon: code.shop.icon,
-                        name: code.shop.name,
-                        website: code.shop.website,
-                    },
-                    status: "PENDING",
-                    timestamp: {
-                        completed: -1,
-                        created: timestamp,
-                        deleted: -1,
-                        flagged: -1,
-                        returned: -1,
-                    },
-                    uuid: {
-                        campaign: campaign.uuid.campaign,
-                        cash_reward: "",
-                        code: code.uuid.code,
-                        discount_reward: "",
-                        membership: code.uuid.membership,
-                        order: order.uuid.order,
-                        referral: referral_ref.id,
-                        shop: code.uuid.shop,
-                        user: code.uuid.user,
-                    },
-                };
-
-                return referral_ref.set(object);
+                return;
             }
-        })
+        });
 };
 // #endregion
 
-// #region updateReferralCode(code, user, order, referral)
+// #region updateDoc(user, membership, doc)
+const updateDoc = (doc_id, doc, user, membership) => {
 
-// #region updateReferredOrder(code, user, order, referral)
-const updateOrder = async (code, user, order) => {
-    
-    var object = order;
-    var buyer_id = "";
-    var referrer_id = "";
-    var code_id = "";
-    var campaign_id = "";
+    if ((user) || (membership)) {
+        
+        if (user) {
 
-    if (!user.empty) {
-        buyer_id = user.doc_id;
-    };
+            doc.uuid.user = user.uuid.user;
 
-    if (!code.empty) {
-        code_id = code.uuid.code;
-        campaign_id = code.uuid.campaign;
-        referrer_id = code.uuid.user;
-    };
+        }
+            
+        if (membership) {
 
-    object.uuid.campaign = campaign_id;
-    object.uuid.code = code_id;
-    object.uuid.user.buyer = user_id;
-    object.uuid.user.referrer = referrer_id;
+            doc.uuid.membership = membership.uuid.membership;
 
-    return admin.firestore().collection("orders").doc(order.uuid.order).update(object);
+        }
+
+        return admin.firestore().collection("orders").doc(doc_id).update(doc);
+
+    } else {
+        return
+    }  
 };
 // #endregion
-
-// #region updateOrder(order, user, code)
-// const updateOrder = async (code, user, order) => {
-    
-//     var object = order;
-    
-
-//     object.stats.usage_count = object.stats.usage_count + 1;
-//     object.timestamp.used = timestamp;
-
-//     return admin.firestore().collection("codes").doc(code.uuid.code).update(object);
-// };
-
-// #region updateRewardCode(code, user, order, discount)
-// async function updateRewardCode(code, user, order, discount) {
-    
-//     var object = code;
-//     const current_timestamp_milliseconds = new Date().getTime();
-//     const timestamp = Math.round(current_timestamp_milliseconds / 1000);
-
-//     object.stats.usage_count = object.stats.usage_count + 1;
-//     object.timestamp.used = timestamp;
-
-//     return admin.firestore().collection("codes").doc(code.uuid.code).update(object);
-// };
-// #endregion
-
-// // #region getUser(Order)
-// const getUser = async (order) => {
-
-//     const emails = await admin.firestore().collection("users")    //First, check whether shop exists for domain
-//             .where("profile.email", "==", order.order.email)
-//             .get();
-
-//             return(emails.docs[0].data());
-
-
-

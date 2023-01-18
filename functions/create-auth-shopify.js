@@ -130,4 +130,3 @@ const createEmptyCampaignsDocument = async (new_shop_ref, new_campaign_ref) => {
 };
 // #endregion
 
-

@@ -17,7 +17,7 @@
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
     "@shopify/shopify-api": "^2.1.0",
-    "axios": "^1.2.1",
+    "axios": "^1.2.3",
     "cookie": "^0.5.0",
     "cookies": "^0.8.0",
     "crypto-js": "^4.1.1",

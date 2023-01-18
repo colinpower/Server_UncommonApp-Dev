@@ -4,17 +4,20 @@ import functions from "firebase-functions";
 import { getTimestamp } from "./helpers/helper.js";
 // #endregion
 
-const create_authUser = functions.auth.user().onCreate(async (user) => {
+const create_authUser = functions.auth
+    .user()
+    .onCreate(async (user) => {
     
-    if (!user.emailVerified) {
-        console.log("email not verified yet??!!")
-        return;
-    } else {
+    // return admin.firestore().collection("asldfkjasf").doc().set({"asldfk": user.uid});
+    // if (!user.emailVerified) {
+    //     console.log("email not verified yet??!!")
+    //     return;
+    // } else {
 
         await createStripeAccount(user);
         return createUsersDocument(user);
 
-    }
+    // }
 });
 
 export default create_authUser;
