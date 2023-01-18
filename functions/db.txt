@@ -88,13 +88,14 @@
                 // uuid.auth_shopify
                 // uuid.shop
 
-// campaigns                                                
+// campaigns     
+                // _STATUS                                    ACTIVE or PENDING                                           
                 // commission {}        
                 // color                    
+                // offer {}                     
                 // requirements.customers_only              
                 // requirements.referral_count              
-                // requirements.users                        
-                // offer {}                                  
+                // requirements.users                                           
                 // status      
                 // title                              
                 // timestamp.created                         
@@ -104,6 +105,7 @@
                 // uuid.shop
 
 // cash
+                // _PURPOSE = TRANSFER / PAYOUT
                 // shop {}
                 // status
                 // type
@@ -114,8 +116,8 @@
                 // value
 
 // codes
+                // _PURPOSE = REWARD / REFERRAL 
                 // code {}                
-                // purpose = REWARD / REFERRAL
                 // shop {}
                 // stats.usage_count
                 // stats.usage_limit
@@ -171,8 +173,9 @@
                 // referrer.user
 
 // referrals
-                // commission {}
+                // _STATUS = PENDING / APPROVED / DENIED
                 // code
+                // commission {}
                 // revenue
                 // shop {}
                 // status
@@ -185,6 +188,7 @@
                 // uuid {}
 
 // shops
+                // _STATUS                                    ACTIVE or PENDING
                 // profile {}
                 // campaigns
                 // shop {}
@@ -229,22 +233,23 @@
 
 // -> commission
         // duration_pending
-        // offer
-        // type
-        // value
+        // offer                                DISCOUNT
+        // type                                 FIXED or PERCENT
+        // value                                as string
 
 // -> offer
         // one_per_customer
-        // minimum_spend
-        // offer
-        // type
+        // minimum_spend                        as int
+        // offer                                DISCOUNT or CASH
+        // type                                 FIXED or PERCENT
         // timestamp.expires
         // timestamp.starts
         // total_usage_limit
-        // value
+        // value                                as string
 
 // -> profile
         // email
+        // email_verified
         // name.first
         // name.last
         // phone
@@ -264,6 +269,7 @@
         // code
         // membership
         // order
+        // reward_code
         // referral
         // shop
         // user

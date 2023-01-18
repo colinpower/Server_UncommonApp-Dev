@@ -50,8 +50,11 @@ const createEmptyShopsDocument = async (new_shop_ref, new_campaign_ref, doc, inf
     const tstamp = getTimestamp();
 
     const object = {
+        _STATUS: "PENDING",
+        campaigns: [new_campaign_ref.id],
         profile: {
             email: info.email,
+            email_verified: false,
             name: {
                 first: "",
                 last: ""
@@ -59,9 +62,8 @@ const createEmptyShopsDocument = async (new_shop_ref, new_campaign_ref, doc, inf
             phone: "",
             phone_verified: false
         },
-        campaigns: [new_campaign_ref.id],
         shop: {
-            category: doc.shop.category,
+            category: "",
             contact_support_email: info.contact_support_email,
             description: info.description,
             domain: doc.shop.domain,
@@ -100,7 +102,6 @@ const createEmptyCampaignsDocument = async (new_shop_ref, new_campaign_ref) => {
             referral_count: 0,
             users: []
         },
-        campaigns: [new_campaign_ref.id],
         title: "",
         offer: {
             one_per_customer: false,

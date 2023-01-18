@@ -140,7 +140,7 @@ express_app.get('/shopify/auth/callback', async (req, res) => {
             },
             uuid: {
                 auth_shopify: shop,
-                shop: shop
+                shop: ""
             }
         };
 
@@ -207,21 +207,14 @@ express_app.post("/shopify/order", async (req, res) => {
 // #region GET /api/sendgrid/unsubscribe?email={email}
 express_app.get("/sendgrid/unsubscribe", async (req, res) => {
 
-
-    //must include ?email={email}
     const email = req.query.email;
-    const current_timestamp_milliseconds = new Date().getTime();
-    const current_timestamp = current_timestamp_milliseconds / 1000;
     
-    console.log("requested unsubcribe for");
-    console.log(email);
-
-    const unsubObject = {
-        eml: email,
-        timestamp: current_timestamp
+    const object = {
+        email: email,
+        timestamp: getTimestamp()
     };
 
-    await admin.firestore().collection("unsubscribe").add(unsubObject)
+    await admin.firestore().collection("unsubscribe").add(object)
     .then(() => {
         res.redirect("https://www.uncommon.app/unsubscribed");
     });
@@ -263,30 +256,31 @@ express_app.get('/stripe/refresh', async (req, res) => {
 express_app.post('/firebase/users/create', async (req, res) => {
     
     const o = req.body;
-    const uuid = o.doc_id;
 
     const user_obj = {
-        account: {
-            available_cash: o.account.available_cash,
-            available_discounts: o.account.available_discounts
-        },
-        doc_id: o.doc_id,
         profile: {
             email: o.profile.email,
-            first_name: o.profile.first_name,
-            last_name: o.profile.last_name,
+            email_verified: o.profile.email_verified,
+            name: {
+                first: o.profile.name.first,
+                last: o.profile.name.last
+            },
             phone: o.profile.phone,
             phone_verified: o.profile.phone_verified
         },
         settings: {
-            notifications: o.settings.notifications
+            has_notifications: o.settings.has_notifications
         },
-        timestamps: {
-            joined: o.timestamps.joined
+        timestamp: {
+            created: o.timestamp.created,
+            deleted: o.timestamp.deleted,
+        },
+        uuid: {
+            user: o.uuid.user
         }
     };
 
-    await admin.firestore().collection("users").doc(uuid).set(user_obj);
+    await admin.firestore().collection("users").doc(o.uuid.user).set(user_obj);
 
     return res.sendStatus(201);
 
@@ -406,7 +400,7 @@ express_app.post('/firebase/auth_phone/create', async (req, res) => {
 });
 // #endregion
 
-// #region POST /api/firebase/auth_phone/create
+// #region POST /api/firebase/codes/create
 express_app.post('/firebase/codes/create', async (req, res) => {
     
     const o = req.body;
@@ -460,7 +454,44 @@ express_app.post('/firebase/codes/create', async (req, res) => {
 });
 // #endregion
 
+// #region POST /api/firebase/codes/modify
+express_app.post('/firebase/codes/modify', async (req, res) => {
+    
+    const o = req.body;
 
+    const ref = admin.firestore().collection("codes").doc(o._code_id).collection("modify").doc(o.uuid);
+
+    const object = {
+        code: {
+            code: o.code.code,
+            UPPERCASED: o.code.UPPERCASED,
+            color: o.code.color,
+            graphql_id: o.code.graphql_id,
+            is_default: o.code.is_default,
+        },
+        new_code: o.new_code,
+        shop: {
+            category: o.shop.category,
+            description: o.shop.description,
+            domain: o.shop.domain,
+            name: o.shop.name,
+            website: o.shop.website,
+            contact_support_email: o.shop.contact_support_email
+        },
+        status: o.status,
+        timestamp: {
+            created: o.timestamp.created,
+            updated: o.timestamp.updated,
+        },
+        uuid: o.uuid
+    };
+
+    await ref.set(object);
+
+    return res.sendStatus(201);
+
+});
+// #endregion
 
 
 // #region POST /api/firebase/auth_phone/update
