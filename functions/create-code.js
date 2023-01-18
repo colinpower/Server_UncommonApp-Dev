@@ -7,7 +7,7 @@ import { getTimestamp } from "./helpers/helper.js";
 import { createShopifyCode } from "./helpers/shopify-helper.js";
 
 const create_Code = functions.firestore
-  .document('codes/{code_id}')
+  .document('codes/{doc_id}')
   .onCreate(async (snap, context) => {
 
     const doc_id = context.params.doc_id;
@@ -19,8 +19,11 @@ const create_Code = functions.firestore
         value: campaign.offer.value,
         code: temp_code,
         title: campaign.title,
-        usage_limit: campaign.offer.usage_limit,
+        usage_limit: campaign.offer.total_usage_limit,
     };
+
+    console.log("THE TEST OBJECT IS...")
+    console.log(object);
 
     const token = await getToken(doc.shop.domain);
     const graphql_id = await createShopifyCode(doc.shop.domain, token, object);
@@ -57,6 +60,6 @@ const updateDocumentWithTempCode = async (doc_id, doc, temp_code, graphql_id, ca
     doc.timestamp.created = getTimestamp();
     doc.uuid.campaign = campaign.uuid.campaign;
 
-    return admin.firestore().collection("auth_shopify").doc(doc_id).update(doc);
+    return admin.firestore().collection("codes").doc(doc_id).update(doc);
 };
 // #endregion

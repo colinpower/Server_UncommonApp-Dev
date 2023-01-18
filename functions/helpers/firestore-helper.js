@@ -6,16 +6,12 @@ export async function getCampaign(code) {
 };
 
 export async function getToken(domain) {
-    return admin.firestore().collection("shopify").doc(domain)
+    return admin.firestore().collection("auth_shopify").doc(domain)
         .get()
         .then(result => {
 
-            console.log(domain);
-            console.log(result.data());
-            console.log(result.data().token.token);
-
-            if (!result.empty) {
-                return result.data().token.token;
+            if (result) {
+                return result.data().session.token;
             } else {
                 return
             }

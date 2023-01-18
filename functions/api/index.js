@@ -232,18 +232,18 @@ express_app.get("/sendgrid/unsubscribe", async (req, res) => {
 // #region GET /api/stripe/refresh
 express_app.get('/stripe/refresh', async (req, res) => {
     
-    //must include ?acct={acct_id}
-    const acct_id = req.query.acct;
+    //must include ?account_id={account_id}
+    const account_id = req.query.account_id;
   
     if (acct_id) {
 
       //get the user's stripe account from Firebase
 
       //IN THE SHORT TERM, JUST PASS THE STRIPE ACCOUNT IN THE URL
-      const refresh_url = "https://us-central1-uncommonapp-dev.cloudfunctions.net/api/stripe/refresh?acct=" + acct_id
+      const refresh_url = "https://us-central1-uncommonapp-dev.cloudfunctions.net/api/stripe/refresh?account_id=" + account_id
 
       const accountLink = await stripe.accountLinks.create({
-        account: acct_id,
+        account: account_id,
         refresh_url: refresh_url,
         return_url: 'https://uncommonapp.page.link/stripe',
         type: 'account_onboarding',
@@ -254,7 +254,7 @@ express_app.get('/stripe/refresh', async (req, res) => {
       //then, redirect to URL we just built
       res.redirect(account_url);
     } else {
-      return res.status(400).send('Missing {acct=acct_id} in request. Please retry or email colin@uncommon.app')
+      return res.status(400).send('Missing {account_id=account_id} in request. Please retry or email colin@uncommon.app')
     }
   });
 // #endregion
@@ -354,13 +354,13 @@ express_app.post('/firebase/shops/create', async (req, res) => {
             }
         },
         campaigns: o.campaigns,
-        info: {
-            category: o.info.category,
-            description: o.info.description,
-            domain: o.info.domain,
-            icon: o.info.icon,
-            name: o.info.name,
-            website: o.info.website
+        shop: {
+            category: o.shop.category,
+            description: o.shop.description,
+            domain: o.shop.domain,
+            name: o.shop.name,
+            website: o.shop.website,
+            contact_support_email: o.shop.contact_support_email
         }, 
         timestamp: {
             created: o.timestamp.created
@@ -405,6 +405,63 @@ express_app.post('/firebase/auth_phone/create', async (req, res) => {
 
 });
 // #endregion
+
+// #region POST /api/firebase/auth_phone/create
+express_app.post('/firebase/codes/create', async (req, res) => {
+    
+    const o = req.body;
+
+    const ref = admin.firestore().collection("codes").doc(o.uuid.code);
+
+    const object = {
+        _PURPOSE: o._PURPOSE,
+        code: {
+            code: o.code.code,
+            UPPERCASED: o.code.UPPERCASED,
+            color: o.code.color,
+            graphql_id: o.code.graphql_id,
+            is_default: o.code.is_default,
+        },
+        shop: {
+            category: o.shop.category,
+            description: o.shop.description,
+            domain: o.shop.domain,
+            name: o.shop.name,
+            website: o.shop.website,
+            contact_support_email: o.shop.contact_support_email
+        },
+        stats: {
+            usage_count: o.stats.usage_count,
+            usage_limit: o.stats.usage_limit,
+        },
+        status: o.status,
+        timestamp: {
+            created: o.timestamp.created,
+            deleted: o.timestamp.deleted,
+            last_used: o.timestamp.last_used,
+            pending: o.timestamp.pending,
+        },
+        uuid: {
+            campaign: o.uuid.campaign,
+            cash: o.uuid.cash,
+            code: o.uuid.code,
+            membership: o.uuid.membership,
+            order: o.uuid.order,
+            referral: o.uuid.referral,
+            shop: o.uuid.shop,
+            user: o.uuid.user,
+        }
+    };
+
+    await ref.set(object);
+
+    return res.sendStatus(201);
+
+});
+// #endregion
+
+
+
 
 // #region POST /api/firebase/auth_phone/update
 express_app.post('firebase/auth_phone/update', async (req, res) => {

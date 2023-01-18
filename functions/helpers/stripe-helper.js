@@ -62,8 +62,8 @@ export async function createAccount(object) {
 // #region createAccountLink(account_id)
 export async function createAccountLink(account_id) {
 
-    const refresh_url = "https://us-central1-uncommonapp-dev.cloudfunctions.net/api/stripe/refresh?acct=" + account_id
-
+    const refresh_url = "https://us-central1-uncommonapp-dev.cloudfunctions.net/api/stripe/refresh?account_id=" + account_id
+    
     const account_link = await stripe.accountLinks.create({
         account: account_id,
         refresh_url: refresh_url,
@@ -128,6 +128,8 @@ export async function transferCash(amount, acct_id, referral_id) {
     return transfer.id;
 };
 
+
+// NOTE: SOURCE_TYPE REFERS TO THE SOURCE OF UNCOMMON'S MONEY (I.E. WILL ALWAYS BE A BANK ACCT IN PROD, BUT WILL BE A CARD IN DEV?)
 export async function createPayout(account_id, amount_in_cents, method, source_type) {
     
     const payout = await stripe.payouts.create(

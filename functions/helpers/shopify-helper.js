@@ -91,7 +91,7 @@ export async function createShopifyCode(domain, token, object) {
         "code": code_var,
         "value": value_var,
         "title": title_var,
-        "usage_limit": usage_limit_var,
+        "usage_limit": usage_limit_var
     };
 
     //Auth with Shopify
@@ -104,6 +104,9 @@ export async function createShopifyCode(domain, token, object) {
             variables: variables,
         },
     });
+
+    console.log("RESPONSE")
+    console.log(response.body);
      
     if (response.body.errors) {
         
@@ -112,7 +115,12 @@ export async function createShopifyCode(domain, token, object) {
 
     } else {
 
-        return response.body.data.discountCodeBasicCreate.codeDiscountNode.id;
+        console.log("ABOUT TO RETURN");
+        console.log(response.body.data.discountCodeBasicCreate.codeDiscountNode);
+        
+        const graphql_id = response.body.data.discountCodeBasicCreate.codeDiscountNode.id
+
+        return graphql_id;
     }
 };
 // #endregion
