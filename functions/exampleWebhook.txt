@@ -1,0 +1,1053 @@
+//example of a response without a discount code (500 lines)
+{
+    "id": 4702057267455,
+    "admin_graphql_api_id": "gid://shopify/Order/4702057267455",
+    "app_id": 580111,
+    "browser_ip": "205.178.78.227",
+    "buyer_accepts_marketing": false,
+    "cancel_reason": null,
+    "cancelled_at": null,
+    "cart_token": null,
+    "checkout_id": 32566085124351,
+    "checkout_token": "c98d8b12fbd9d737e935a7ba664719e0",
+    "client_details": {
+      "accept_language": "en-US,en;q=0.9",
+      "browser_height": 894,
+      "browser_ip": "205.178.78.227",
+      "browser_width": 1536,
+      "session_hash": null,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+    },
+    "closed_at": null,
+    "confirmed": true,
+    "contact_email": "colinjpower1@gmail.com",
+    "created_at": "2022-03-20T11:50:49-05:00",
+    "currency": "USD",
+    "current_subtotal_price": "98.00",
+    "current_subtotal_price_set": {
+      "shop_money": {
+        "amount": "98.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "98.00",
+        "currency_code": "USD"
+      }
+    },
+    "current_total_discounts": "0.00",
+    "current_total_discounts_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      }
+    },
+    "current_total_duties_set": null,
+    "current_total_price": "108.06",
+    "current_total_price_set": {
+      "shop_money": {
+        "amount": "108.06",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "108.06",
+        "currency_code": "USD"
+      }
+    },
+    "current_total_tax": "10.06",
+    "current_total_tax_set": {
+      "shop_money": {
+        "amount": "10.06",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "10.06",
+        "currency_code": "USD"
+      }
+    },
+    "customer_locale": "en",
+    "device_id": null,
+    "discount_codes": [],
+    "email": "colinjpower1@gmail.com",
+    "estimated_taxes": false,
+    "financial_status": "paid",
+    "fulfillment_status": null,
+    "gateway": "bogus",
+    "landing_site": "/wallets/checkouts.json",
+    "landing_site_ref": null,
+    "location_id": null,
+    "name": "#1006",
+    "note": null,
+    "note_attributes": [],
+    "number": 6,
+    "order_number": 1006,
+    "order_status_url": "https://athleisure-la.myshopify.com/63427707135/orders/618f44c951e2e1f3bade707e0a19bdb4/authenticate?key=7c441010be0408ff05d99f5a4b7a2460",
+    "original_total_duties_set": null,
+    "payment_gateway_names": [
+      "bogus"
+    ],
+    "phone": null,
+    "presentment_currency": "USD",
+    "processed_at": "2022-03-20T11:50:48-05:00",
+    "processing_method": "direct",
+    "reference": null,
+    "referring_site": "https://athleisure-la.myshopify.com/products/performance-hoodie",
+    "source_identifier": null,
+    "source_name": "web",
+    "source_url": null,
+    "subtotal_price": "98.00",
+    "subtotal_price_set": {
+      "shop_money": {
+        "amount": "98.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "98.00",
+        "currency_code": "USD"
+      }
+    },
+    "tags": "",
+    "tax_lines": [
+      {
+        "price": "2.70",
+        "rate": 0.0275,
+        "title": "Cook County Tax",
+        "price_set": {
+          "shop_money": {
+            "amount": "2.70",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "2.70",
+            "currency_code": "USD"
+          }
+        },
+        "channel_liable": false
+      },
+      {
+        "price": "6.13",
+        "rate": 0.0625,
+        "title": "Illinois State Tax",
+        "price_set": {
+          "shop_money": {
+            "amount": "6.13",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "6.13",
+            "currency_code": "USD"
+          }
+        },
+        "channel_liable": false
+      },
+      {
+        "price": "1.23",
+        "rate": 0.0125,
+        "title": "Chicago City Tax",
+        "price_set": {
+          "shop_money": {
+            "amount": "1.23",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "1.23",
+            "currency_code": "USD"
+          }
+        },
+        "channel_liable": false
+      }
+    ],
+    "taxes_included": false,
+    "test": true,
+    "token": "618f44c951e2e1f3bade707e0a19bdb4",
+    "total_discounts": "0.00",
+    "total_discounts_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      }
+    },
+    "total_line_items_price": "98.00",
+    "total_line_items_price_set": {
+      "shop_money": {
+        "amount": "98.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "98.00",
+        "currency_code": "USD"
+      }
+    },
+    "total_outstanding": "0.00",
+    "total_price": "108.06",
+    "total_price_set": {
+      "shop_money": {
+        "amount": "108.06",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "108.06",
+        "currency_code": "USD"
+      }
+    },
+    "total_price_usd": "108.06",
+    "total_shipping_price_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      }
+    },
+    "total_tax": "10.06",
+    "total_tax_set": {
+      "shop_money": {
+        "amount": "10.06",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "10.06",
+        "currency_code": "USD"
+      }
+    },
+    "total_tip_received": "0.00",
+    "total_weight": 0,
+    "updated_at": "2022-03-20T11:50:50-05:00",
+    "user_id": null,
+    "billing_address": {
+      "first_name": "Colin",
+      "address1": "1725 N Dayton St, Unit B",
+      "phone": null,
+      "city": "Chicago",
+      "zip": "60614",
+      "province": "Illinois",
+      "country": "United States",
+      "last_name": "Power",
+      "address2": "Unit B",
+      "company": null,
+      "latitude": 41.9134862,
+      "longitude": -87.649317,
+      "name": "Colin Power",
+      "country_code": "US",
+      "province_code": "IL"
+    },
+    "customer": {
+      "id": 6107493990655,
+      "email": "colinjpower1@gmail.com",
+      "accepts_marketing": false,
+      "created_at": "2022-03-20T10:43:44-05:00",
+      "updated_at": "2022-03-20T11:50:49-05:00",
+      "first_name": "Colin",
+      "last_name": "Power",
+      "orders_count": 0,
+      "state": "disabled",
+      "total_spent": "0.00",
+      "last_order_id": null,
+      "note": null,
+      "verified_email": true,
+      "multipass_identifier": null,
+      "tax_exempt": false,
+      "phone": null,
+      "tags": "",
+      "last_order_name": null,
+      "currency": "USD",
+      "accepts_marketing_updated_at": "2022-03-20T10:43:44-05:00",
+      "marketing_opt_in_level": null,
+      "sms_marketing_consent": null,
+      "admin_graphql_api_id": "gid://shopify/Customer/6107493990655",
+      "default_address": {
+        "id": 7675988279551,
+        "customer_id": 6107493990655,
+        "first_name": "Colin",
+        "last_name": "Power",
+        "company": null,
+        "address1": "1725 N Dayton St, Unit B",
+        "address2": "Unit B",
+        "city": "Chicago",
+        "province": "Illinois",
+        "country": "United States",
+        "zip": "60614",
+        "phone": null,
+        "name": "Colin Power",
+        "province_code": "IL",
+        "country_code": "US",
+        "country_name": "United States",
+        "default": true
+      }
+    },
+    "discount_applications": [],
+    "fulfillments": [],
+    "line_items": [
+      {
+        "id": 12072864973055,
+        "admin_graphql_api_id": "gid://shopify/LineItem/12072864973055",
+        "fulfillable_quantity": 1,
+        "fulfillment_service": "manual",
+        "fulfillment_status": null,
+        "gift_card": false,
+        "grams": 0,
+        "name": "Performance Hoodie - Small",
+        "origin_location": {
+          "id": 3436557959423,
+          "country_code": "US",
+          "province_code": "IL",
+          "name": "AthleisureLA",
+          "address1": "1725 N Dayton St",
+          "address2": "",
+          "city": "Chicago",
+          "zip": "60614"
+        },
+        "price": "98.00",
+        "price_set": {
+          "shop_money": {
+            "amount": "98.00",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "98.00",
+            "currency_code": "USD"
+          }
+        },
+        "product_exists": true,
+        "product_id": 7585260634367,
+        "properties": [],
+        "quantity": 1,
+        "requires_shipping": true,
+        "sku": "",
+        "taxable": true,
+        "title": "Performance Hoodie",
+        "total_discount": "0.00",
+        "total_discount_set": {
+          "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          }
+        },
+        "variant_id": 42577058005247,
+        "variant_inventory_management": "shopify",
+        "variant_title": "Small",
+        "vendor": "Athleisure LA",
+        "tax_lines": [
+          {
+            "channel_liable": false,
+            "price": "6.13",
+            "price_set": {
+              "shop_money": {
+                "amount": "6.13",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "6.13",
+                "currency_code": "USD"
+              }
+            },
+            "rate": 0.0625,
+            "title": "Illinois State Tax"
+          },
+          {
+            "channel_liable": false,
+            "price": "2.70",
+            "price_set": {
+              "shop_money": {
+                "amount": "2.70",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "2.70",
+                "currency_code": "USD"
+              }
+            },
+            "rate": 0.0275,
+            "title": "Cook County Tax"
+          },
+          {
+            "channel_liable": false,
+            "price": "1.23",
+            "price_set": {
+              "shop_money": {
+                "amount": "1.23",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "1.23",
+                "currency_code": "USD"
+              }
+            },
+            "rate": 0.0125,
+            "title": "Chicago City Tax"
+          }
+        ],
+        "duties": [],
+        "discount_allocations": []
+      }
+    ],
+    "payment_details": {
+      "credit_card_bin": "1",
+      "avs_result_code": null,
+      "cvv_result_code": null,
+      "credit_card_number": "•••• •••• •••• 1",
+      "credit_card_company": "Bogus"
+    },
+    "payment_terms": null,
+    "refunds": [],
+    "shipping_address": {
+      "first_name": "Colin",
+      "address1": "1725 N Dayton St, Unit B",
+      "phone": null,
+      "city": "Chicago",
+      "zip": "60614",
+      "province": "Illinois",
+      "country": "United States",
+      "last_name": "Power",
+      "address2": "Unit B",
+      "company": null,
+      "latitude": 41.9134862,
+      "longitude": -87.649317,
+      "name": "Colin Power",
+      "country_code": "US",
+      "province_code": "IL"
+    },
+    "shipping_lines": [
+      {
+        "id": 3907906044159,
+        "carrier_identifier": null,
+        "code": "Economy",
+        "delivery_category": null,
+        "discounted_price": "0.00",
+        "discounted_price_set": {
+          "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          }
+        },
+        "phone": null,
+        "price": "0.00",
+        "price_set": {
+          "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          }
+        },
+        "requested_fulfillment_service_id": null,
+        "source": "shopify",
+        "title": "Economy",
+        "tax_lines": [
+          {
+            "channel_liable": false,
+            "price": "0.00",
+            "price_set": {
+              "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              }
+            },
+            "rate": 0.0625,
+            "title": "Illinois State Tax"
+          },
+          {
+            "channel_liable": false,
+            "price": "0.00",
+            "price_set": {
+              "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              }
+            },
+            "rate": 0.0275,
+            "title": "Cook County Tax"
+          },
+          {
+            "channel_liable": false,
+            "price": "0.00",
+            "price_set": {
+              "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              }
+            },
+            "rate": 0.0125,
+            "title": "Chicago City Tax"
+          }
+        ],
+        "discount_allocations": []
+      }
+    ]
+  }
+  
+  
+  
+  
+  
+  //example of a response with a discount code
+  
+  {
+    "id": 4702005330175,
+    "admin_graphql_api_id": "gid://shopify/Order/4702005330175",
+    "app_id": 580111,
+    "browser_ip": "205.178.78.227",
+    "buyer_accepts_marketing": false,
+    "cancel_reason": null,
+    "cancelled_at": null,
+    "cart_token": null,
+    "checkout_id": 32565892677887,
+    "checkout_token": "bec5a3c319179556769fb63d5f41972f",
+    "client_details": {
+      "accept_language": "en-US,en;q=0.9",
+      "browser_height": 894,
+      "browser_ip": "205.178.78.227",
+      "browser_width": 1536,
+      "session_hash": null,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
+    },
+    "closed_at": null,
+    "confirmed": true,
+    "contact_email": "colinjpower1@gmail.com",
+    "created_at": "2022-03-20T10:57:59-05:00",
+    "currency": "USD",
+    "current_subtotal_price": "115.00",
+    "current_subtotal_price_set": {
+      "shop_money": {
+        "amount": "115.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "115.00",
+        "currency_code": "USD"
+      }
+    },
+    "current_total_discounts": "10.00",
+    "current_total_discounts_set": {
+      "shop_money": {
+        "amount": "10.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "10.00",
+        "currency_code": "USD"
+      }
+    },
+    "current_total_duties_set": null,
+    "current_total_price": "126.79",
+    "current_total_price_set": {
+      "shop_money": {
+        "amount": "126.79",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "126.79",
+        "currency_code": "USD"
+      }
+    },
+    "current_total_tax": "11.79",
+    "current_total_tax_set": {
+      "shop_money": {
+        "amount": "11.79",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "11.79",
+        "currency_code": "USD"
+      }
+    },
+    "customer_locale": "en",
+    "device_id": null,
+    "discount_codes": [
+      {
+        "code": "COLIN10",
+        "amount": "10.00",
+        "type": "fixed_amount"
+      }
+    ],
+    "email": "colinjpower1@gmail.com",
+    "estimated_taxes": false,
+    "financial_status": "paid",
+    "fulfillment_status": null,
+    "gateway": "bogus",
+    "landing_site": "/wallets/checkouts.json",
+    "landing_site_ref": null,
+    "location_id": null,
+    "name": "#1002",
+    "note": null,
+    "note_attributes": [],
+    "number": 2,
+    "order_number": 1002,
+    "order_status_url": "https://athleisure-la.myshopify.com/63427707135/orders/edc9727f39c8959c970c2fad21c32d64/authenticate?key=aab7cee34d394554397645c0860d997a",
+    "original_total_duties_set": null,
+    "payment_gateway_names": [
+      "bogus"
+    ],
+    "phone": null,
+    "presentment_currency": "USD",
+    "processed_at": "2022-03-20T10:57:57-05:00",
+    "processing_method": "direct",
+    "reference": null,
+    "referring_site": "https://athleisure-la.myshopify.com/products/utility-jogger",
+    "source_identifier": null,
+    "source_name": "web",
+    "source_url": null,
+    "subtotal_price": "115.00",
+    "subtotal_price_set": {
+      "shop_money": {
+        "amount": "115.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "115.00",
+        "currency_code": "USD"
+      }
+    },
+    "tags": "",
+    "tax_lines": [
+      {
+        "price": "3.16",
+        "rate": 0.0275,
+        "title": "Cook County Tax",
+        "price_set": {
+          "shop_money": {
+            "amount": "3.16",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "3.16",
+            "currency_code": "USD"
+          }
+        },
+        "channel_liable": false
+      },
+      {
+        "price": "7.19",
+        "rate": 0.0625,
+        "title": "Illinois State Tax",
+        "price_set": {
+          "shop_money": {
+            "amount": "7.19",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "7.19",
+            "currency_code": "USD"
+          }
+        },
+        "channel_liable": false
+      },
+      {
+        "price": "1.44",
+        "rate": 0.0125,
+        "title": "Chicago City Tax",
+        "price_set": {
+          "shop_money": {
+            "amount": "1.44",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "1.44",
+            "currency_code": "USD"
+          }
+        },
+        "channel_liable": false
+      }
+    ],
+    "taxes_included": false,
+    "test": true,
+    "token": "edc9727f39c8959c970c2fad21c32d64",
+    "total_discounts": "10.00",
+    "total_discounts_set": {
+      "shop_money": {
+        "amount": "10.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "10.00",
+        "currency_code": "USD"
+      }
+    },
+    "total_line_items_price": "125.00",
+    "total_line_items_price_set": {
+      "shop_money": {
+        "amount": "125.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "125.00",
+        "currency_code": "USD"
+      }
+    },
+    "total_outstanding": "0.00",
+    "total_price": "126.79",
+    "total_price_set": {
+      "shop_money": {
+        "amount": "126.79",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "126.79",
+        "currency_code": "USD"
+      }
+    },
+    "total_price_usd": "126.79",
+    "total_shipping_price_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      }
+    },
+    "total_tax": "11.79",
+    "total_tax_set": {
+      "shop_money": {
+        "amount": "11.79",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "11.79",
+        "currency_code": "USD"
+      }
+    },
+    "total_tip_received": "0.00",
+    "total_weight": 0,
+    "updated_at": "2022-03-20T10:58:01-05:00",
+    "user_id": null,
+    "billing_address": {
+      "first_name": "Colin",
+      "address1": "1725 N Dayton St, Unit B",
+      "phone": null,
+      "city": "Chicago",
+      "zip": "60614",
+      "province": "Illinois",
+      "country": "United States",
+      "last_name": "Power",
+      "address2": "Unit B",
+      "company": null,
+      "latitude": 41.9134862,
+      "longitude": -87.649317,
+      "name": "Colin Power",
+      "country_code": "US",
+      "province_code": "IL"
+    },
+    "customer": {
+      "id": 6107493990655,
+      "email": "colinjpower1@gmail.com",
+      "accepts_marketing": false,
+      "created_at": "2022-03-20T10:43:44-05:00",
+      "updated_at": "2022-03-20T10:58:00-05:00",
+      "first_name": "Colin",
+      "last_name": "Power",
+      "orders_count": 0,
+      "state": "disabled",
+      "total_spent": "0.00",
+      "last_order_id": null,
+      "note": null,
+      "verified_email": true,
+      "multipass_identifier": null,
+      "tax_exempt": false,
+      "phone": null,
+      "tags": "",
+      "last_order_name": null,
+      "currency": "USD",
+      "accepts_marketing_updated_at": "2022-03-20T10:43:44-05:00",
+      "marketing_opt_in_level": null,
+      "sms_marketing_consent": null,
+      "admin_graphql_api_id": "gid://shopify/Customer/6107493990655",
+      "default_address": {
+        "id": 7675988279551,
+        "customer_id": 6107493990655,
+        "first_name": "Colin",
+        "last_name": "Power",
+        "company": null,
+        "address1": "1725 N Dayton St, Unit B",
+        "address2": "Unit B",
+        "city": "Chicago",
+        "province": "Illinois",
+        "country": "United States",
+        "zip": "60614",
+        "phone": null,
+        "name": "Colin Power",
+        "province_code": "IL",
+        "country_code": "US",
+        "country_name": "United States",
+        "default": true
+      }
+    },
+    "discount_applications": [
+      {
+        "target_type": "line_item",
+        "type": "discount_code",
+        "value": "10.0",
+        "value_type": "fixed_amount",
+        "allocation_method": "across",
+        "target_selection": "all",
+        "code": "COLIN10"
+      }
+    ],
+    "fulfillments": [],
+    "line_items": [
+      {
+        "id": 12072759034111,
+        "admin_graphql_api_id": "gid://shopify/LineItem/12072759034111",
+        "fulfillable_quantity": 1,
+        "fulfillment_service": "manual",
+        "fulfillment_status": null,
+        "gift_card": false,
+        "grams": 0,
+        "name": "Utility Jogger - Small",
+        "origin_location": {
+          "id": 3436528795903,
+          "country_code": "US",
+          "province_code": "IL",
+          "name": "Athleisure LA",
+          "address1": "1725 N Dayton St",
+          "address2": "",
+          "city": "Chicago",
+          "zip": "60614"
+        },
+        "price": "125.00",
+        "price_set": {
+          "shop_money": {
+            "amount": "125.00",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "125.00",
+            "currency_code": "USD"
+          }
+        },
+        "product_exists": true,
+        "product_id": 7585264795903,
+        "properties": [],
+        "quantity": 1,
+        "requires_shipping": true,
+        "sku": "",
+        "taxable": true,
+        "title": "Utility Jogger",
+        "total_discount": "0.00",
+        "total_discount_set": {
+          "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          }
+        },
+        "variant_id": 42577065279743,
+        "variant_inventory_management": "shopify",
+        "variant_title": "Small",
+        "vendor": "Athleisure LA",
+        "tax_lines": [
+          {
+            "channel_liable": false,
+            "price": "7.19",
+            "price_set": {
+              "shop_money": {
+                "amount": "7.19",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "7.19",
+                "currency_code": "USD"
+              }
+            },
+            "rate": 0.0625,
+            "title": "Illinois State Tax"
+          },
+          {
+            "channel_liable": false,
+            "price": "3.16",
+            "price_set": {
+              "shop_money": {
+                "amount": "3.16",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "3.16",
+                "currency_code": "USD"
+              }
+            },
+            "rate": 0.0275,
+            "title": "Cook County Tax"
+          },
+          {
+            "channel_liable": false,
+            "price": "1.44",
+            "price_set": {
+              "shop_money": {
+                "amount": "1.44",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "1.44",
+                "currency_code": "USD"
+              }
+            },
+            "rate": 0.0125,
+            "title": "Chicago City Tax"
+          }
+        ],
+        "duties": [],
+        "discount_allocations": [
+          {
+            "amount": "10.00",
+            "amount_set": {
+              "shop_money": {
+                "amount": "10.00",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "10.00",
+                "currency_code": "USD"
+              }
+            },
+            "discount_application_index": 0
+          }
+        ]
+      }
+    ],
+    "payment_details": {
+      "credit_card_bin": "1",
+      "avs_result_code": null,
+      "cvv_result_code": null,
+      "credit_card_number": "•••• •••• •••• 1",
+      "credit_card_company": "Bogus"
+    },
+    "payment_terms": null,
+    "refunds": [],
+    "shipping_address": {
+      "first_name": "Colin",
+      "address1": "1725 N Dayton St, Unit B",
+      "phone": null,
+      "city": "Chicago",
+      "zip": "60614",
+      "province": "Illinois",
+      "country": "United States",
+      "last_name": "Power",
+      "address2": "Unit B",
+      "company": null,
+      "latitude": 41.9134862,
+      "longitude": -87.649317,
+      "name": "Colin Power",
+      "country_code": "US",
+      "province_code": "IL"
+    },
+    "shipping_lines": [
+      {
+        "id": 3907873407231,
+        "carrier_identifier": null,
+        "code": "Economy",
+        "delivery_category": null,
+        "discounted_price": "0.00",
+        "discounted_price_set": {
+          "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          }
+        },
+        "phone": null,
+        "price": "0.00",
+        "price_set": {
+          "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          }
+        },
+        "requested_fulfillment_service_id": null,
+        "source": "shopify",
+        "title": "Economy",
+        "tax_lines": [
+          {
+            "channel_liable": false,
+            "price": "0.00",
+            "price_set": {
+              "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              }
+            },
+            "rate": 0.0625,
+            "title": "Illinois State Tax"
+          },
+          {
+            "channel_liable": false,
+            "price": "0.00",
+            "price_set": {
+              "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              }
+            },
+            "rate": 0.0275,
+            "title": "Cook County Tax"
+          },
+          {
+            "channel_liable": false,
+            "price": "0.00",
+            "price_set": {
+              "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              }
+            },
+            "rate": 0.0125,
+            "title": "Chicago City Tax"
+          }
+        ],
+        "discount_allocations": []
+      }
+    ]
+  }

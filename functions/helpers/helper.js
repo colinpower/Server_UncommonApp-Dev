@@ -5,3 +5,12 @@ export function getTimestamp() {
 
     return timestamp;
 };
+
+export function convertTimestampToShortDate(timestamp) {
+
+    const date = new Date(timestamp * 1000);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    return `${month} ${day}`;
+}

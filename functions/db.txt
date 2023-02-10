@@ -91,12 +91,11 @@
 // campaigns     
                 // _STATUS                                    ACTIVE or PENDING                                           
                 // commission {}        
-                // color                    
+                // color []                    
                 // offer {}                     
                 // requirements.customers_only              
                 // requirements.referral_count              
-                // requirements.users                                           
-                // status      
+                // requirements.users                                             
                 // title                              
                 // timestamp.created                         
                 // timestamp.expires                         
@@ -108,7 +107,6 @@
                 // _PURPOSE = TRANSFER / PAYOUT
                 // shop {}
                 // status
-                // type
                 // timestamp.created
                 // timestamp.transfer
                 // timestamp.payout
@@ -139,6 +137,7 @@
 
 // memberships
                 // campaigns
+                // color []
                 // default_campaign
                         // commission {}
                         // offer {}
@@ -204,8 +203,8 @@
                 // setup.link
                 // account.balance
                 // account.acct_id
-                // account.bank_id
-                // account.methods
+                // account.methods_available
+                // account.source_type
                 // account.link
                 // profile{}
                 // timestamp.created

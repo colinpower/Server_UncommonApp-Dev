@@ -26,28 +26,33 @@ export default create_authUser;
 const createStripeAccount = async (user) => {
 
     const object = {
-        setup: {
-            charges_enabled: false,
-            currently_due: [],
-            details_submitted: false,
-            eventually_due: [],
-            link: ""
-        },
         account: {
-            balance: 0,
             acct_id: "",
-            bank_id: "",
-            methods: [],
-            link: ""
+            balance: 0,
+            link: {
+                created: 0,
+                object: "",
+                url: ""
+            },
+            methods_available: [],
+            source_type: ""
         },
         profile: {
             email: user.email,
+            email_verified: user.emailVerified,
             name: {
                 first: "",
                 last: ""
             },
             phone: "",
             phone_verified: false
+        },
+        setup: {
+            charges_enabled: false,
+            currently_due: [],
+            details_submitted: false,
+            eventually_due: [],
+            link: ""
         },
         timestamp: {
             created: 0,
@@ -72,6 +77,7 @@ const createUsersDocument = async (user) => {
     const object = {
         profile: {
             email: user.email,
+            email_verified: user.emailVerified,
             name: {
                 first: "",
                 last: ""
@@ -85,6 +91,9 @@ const createUsersDocument = async (user) => {
         timestamp: {
             created: getTimestamp(),
             deleted: 0
+        },
+        uuid: {
+            user: user.uid
         }
     };
 

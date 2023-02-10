@@ -1,7 +1,7 @@
 // #region setup
 import admin from "firebase-admin";
 import functions from "firebase-functions";
-import { checkAccount, createAccountLink } from "./helpers/stripe-helper.js";
+import { checkAccount, createLoginLink } from "./helpers/stripe-helper.js";
 import { getTimestamp } from "./helpers/helper.js";
 // #endregion
 
@@ -15,14 +15,14 @@ const create_stripeAccount_check = functions.firestore
     const account_id = snap.data().acct_id;
 
     const account = await checkAccount(account_id);
-    const link = await createAccountLink(account_id);
+    const link = await createLoginLink(account_id);
 
     var update = {
         "setup.charges_enabled": account.charges_enabled,
         "setup.details_submitted": account.details_submitted,
         "setup.currently_due": account.requirements.currently_due,
         "setup.eventually_due": account.requirements.eventually_due,
-        "setup.link": link,
+        "account.link": link,
         "timestamp.last_updated": getTimestamp()
     };
 
