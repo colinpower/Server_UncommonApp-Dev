@@ -115,7 +115,7 @@ const createEmptyCampaignsDocument = async (new_shop_ref, new_campaign_ref) => {
             total_usage_limit: 0,
             value: ""
         },
-        status: "EMPTY",
+        _STATUS: "EMPTY",
         timestamp: {
             created: tstamp,
             expires: 0,

@@ -493,7 +493,6 @@ express_app.post('/firebase/codes/modify', async (req, res) => {
 });
 // #endregion
 
-
 // #region POST /api/firebase/auth_phone/update
 express_app.post('firebase/auth_phone/update', async (req, res) => {
     
@@ -588,7 +587,7 @@ const getShop = async (domain) => {
         .get();
     
     if (shop) {
-        return shop.data();
+        return shop.docs[0].data();
     } else {
         return
     }
@@ -609,10 +608,10 @@ const addOrder = async (object, shop) => {
 
     let ref = admin.firestore().collection("orders").doc();     
 
-    var type = ((req.body.discount_codes[0]) ? [req.body.discount_codes[0].type] : []);
-    var amount = ((req.body.discount_codes[0]) ? [req.body.discount_codes[0].amount] : []);
-    var code = ((req.body.discount_codes[0]) ? [req.body.discount_codes[0].code] : []);
-    var phone = ((req.body.phone) ? req.body.phone : "");
+    var type = ((object.discount_codes[0]) ? [object.discount_codes[0].type] : []);
+    var amount = ((object.discount_codes[0]) ? [object.discount_codes[0].amount] : []);
+    var code = ((object.discount_codes[0]) ? [object.discount_codes[0].code] : []);
+    var phone = ((object.phone) ? object.phone : "");
     
     // #region Create order object for Firebase
     var new_order = {
@@ -643,7 +642,7 @@ const addOrder = async (object, shop) => {
             domain: shop.shop.domain,
             name: shop.shop.name,
             website: shop.shop.website,
-            contact_support_url: shop.shop.contact_support_url
+            contact_support_email: shop.shop.contact_support_email
         },
         timestamp: {
             created: getTimestamp(),

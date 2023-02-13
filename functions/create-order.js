@@ -7,23 +7,29 @@ const create_Order = functions.firestore
   .onCreate(async (snap, context) => {
 
     const doc_id = context.params.doc_id;
-    const doc = snap.data();
-    const user = await checkForUser(doc.order.email, doc.order.phone);
-    const membership = await checkForMembership(user, doc.uuid.shop);
+    const order = snap.data();
+    const user = await checkForUser(order.order.email, order.order.phone);
+    const membership = await checkForMembership(user, order.uuid.shop);
     
-    if (doc.codes.code[0]) {                                    // CODE USED... -->
+    if (order.codes.code[0]) {                                    // CODE USED... -->
 
-        const code = await checkForCode(doc.codes.code[0], doc.shop.domain);
+        const code = await checkForCode(order.codes.code[0], order.shop.domain);
 
         if (code) {                                             //      --> & FROM UNCOMMON
 
-            if (code.purpose == "REWARD") {                     //      --> & FROM UNCOMMON, AS REWARD
+
+            console.log("THIS WAS THE CODE IN THE SWITCH STATEMENT");
+            console.log(code);
+
+            if (code._PURPOSE == "REWARD") {                     //      --> & FROM UNCOMMON, AS REWARD
                 
-                return makeUpdatesForRewardCodeUsage(doc_id, doc, code);
+                return makeUpdatesForRewardCodeUsage(doc_id, order, code);
 
-            } else if (code.purpose == "REFERRAL") {            //      --> & FROM UNCOMMON, AS REFERRAL
+            } else if (code._PURPOSE == "REFERRAL") {            //      --> & FROM UNCOMMON, AS REFERRAL
 
-                return makeUpdatesForReferralCodeUsage(doc_id, doc, user, membership, code)
+                console.log("THIS WAS A REFERRAL CODE");
+
+                return makeUpdatesForReferralCodeUsage(doc_id, order, user, membership, code)
 
             } else {                                            //      --> & ERROR FINDING TYPE
 
@@ -32,14 +38,13 @@ const create_Order = functions.firestore
             }
         } else {                                                //      --> & NOT FROM UNCOMMON
 
-            return updateDoc(doc_id, doc, user, membership);
+            return updateDoc(doc_id, order, user, membership);
 
         }
 
-
     } else {                                                    // NO CODE USED
 
-        return updateDoc(doc_id, doc, user, membership);
+        return updateDoc(doc_id, order, user, membership);
         
     }
 });
@@ -117,6 +122,8 @@ const checkForCode = async (code, domain) => {
         .get()
         .then((result) => {
             if (result) {
+                console.log("THIS IS THE CODE FOUND");
+                console.log(result.docs[0].data());
                 return result.docs[0].data();
             } else {
                 return
@@ -147,32 +154,32 @@ const makeUpdatesForRewardCodeUsage = async (doc_id, doc, code) => {            
 }
 // #endregion
 
-// #region makeUpdatesForReferralCodeUsage(doc_id, doc, user, membership, code)
-const makeUpdatesForReferralCodeUsage = async (doc_id, doc, user, membership, code) => {            // update code, add referral, update order
+// #region makeUpdatesForReferralCodeUsage(doc_id, order, user, membership, code)
+const makeUpdatesForReferralCodeUsage = async (doc_id, order, user, membership, code) => {            // update code, add referral, update order
 
     code.stats.usage_count = code.stats.usage_count + 1;
     code.timestamp.last_used = getTimestamp();
-    code.uuid.order = doc.uuid.order;
+    code.uuid.order = order.uuid.order;
 
     await admin.firestore().collection("codes").doc(code.uuid.code).update(code);
 
-    const referral_id = createReferral(doc, code);
+    const referral_id = await createReferral(code, order);
 
-    doc.referrer.code = code.code.code;
-    doc.referrer.membership = code.uuid.membership;
-    doc.referrer.user = code.uuid.user;
-    doc.uuid.campaign = code.uuid.campaign;
-    doc.uuid.code = code.uuid.code;
-    doc.uuid.membership = ((membership) ? membership.uuid.membership : "");
-    doc.uuid.referral = referral_id;
-    doc.uuid.user = ((user) ? user.uuid.user : "");
+    order.referrer.code = code.code.code;
+    order.referrer.membership = code.uuid.membership;
+    order.referrer.user = code.uuid.user;
+    order.uuid.campaign = code.uuid.campaign;
+    order.uuid.code = code.uuid.code;
+    order.uuid.membership = ((membership) ? membership.uuid.membership : "");
+    order.uuid.referral = referral_id;
+    order.uuid.user = ((user) ? user.uuid.user : "");
 
-    return admin.firestore().collection("orders").doc(doc_id).update(doc);
+    return admin.firestore().collection("orders").doc(doc_id).update(order);
 };
 // #endregion
 
-// #region createReferral(code, user, referral_ref)
-const createReferral = async (code, order, referral_ref) => {
+// #region createReferral(code, user)
+const createReferral = async (code, order) => {
 
     //must first post a new /referral/{id}
     //then return the referral_id
@@ -181,31 +188,58 @@ const createReferral = async (code, order, referral_ref) => {
 
     if (campaign) {
 
+        console.log("FOUND CAMPAIGN");
+        console.log(campaign);
+
         const referral_ref = admin.firestore().collection("referrals").doc();
 
-        var object = {}
+        console.log("THIS IS THE REFERRAL REFERENCE")
+        console.log(referral_ref.id);
 
-        object.commission = campaign.commission;
-        object.code = code.code.code;
-        object.revenue = order.order.price;
-        object.shop = code.shop;
-        object.status = "ACTIVE";
-        object.modified_by = "";
-        object.timestamp.created = getTimestamp();
-        object.timestamp.completed = 0;
-        object.timestamp.returned = 0;
-        object.timestamp.flagged = 0;
-        object.timestamp.deleted = 0;
-        object.uuid.campaign = campaign.uuid.campaign;
-        object.uuid.cash = "";
-        object.uuid.code = code.uuid.code;
-        object.uuid.membership = code.uuid.membership;
-        object.uuid.order = order.uuid.order;
-        object.uuid.referral = referral_ref.id;
-        object.uuid.shop = code.uuid.shop;
-        object.uuid.user = code.uuid.user;
+        var object = {
+            
+            _STATUS: "PENDING",
+            code: code.code.code,
+            commission: {
+                duration_pending: campaign.commission.duration_pending,
+                offer: campaign.commission.offer,
+                type: campaign.commission.type,
+                value: campaign.commission.value,
+            },
+            modified_by: "",
+            revenue: order.order.price,
+            shop: {
+                domain: code.shop.domain,
+                name: code.shop.name,
+                category: code.shop.category,
+                contact_support_email: code.shop.contact_support_email,
+                description: code.shop.description,
+                website: code.shop.website,
+            },
+            status: "ACTIVE",
+            timestamp: {
+                created: getTimestamp(),
+                completed: 0,
+                returned: 0,
+                flagged: 0,
+                deleted: 0
+            },
+            uuid: {
+                campaign: campaign.uuid.campaign,
+                cash: "",
+                code: code.uuid.code,
+                membership: code.uuid.membership,
+                order: order.uuid.order,
+                referral: referral_ref.id,
+                reward_code: "",
+                shop: code.uuid.shop,
+                user: code.uuid.user,
+            }
+        }
       
         await referral_ref.set(object);
+
+        console.log("THIS IS THE REFERRAL REFERENCE")
 
         return referral_ref.id
 
